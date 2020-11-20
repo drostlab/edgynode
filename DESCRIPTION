@@ -1,0 +1,16 @@
+Package: edgynode
+Type: Package
+Title: Simulated evolution of gene regulatory networks
+Version: 0.1.0
+Authors@R: c(person("Sergio", "Vasquez", , "sergio.vasquez@tuebingen.mpg.de", c("aut", "cre", "ctb")),
+            person("Hajk-Georg", "Drost", , "hajk-georg.drost@tuebingen.mpg.de", c("aut", "ctb"))
+            )
+Maintainer: Sergio Vasquez <sergio.vasquez@tuebingen.mpg.de>
+Description: Statistical assessment and simulated evolution of gene regulatory networks.
+License: GPL-3
+Depends: R (>= 3.1.1)
+Imports: fs, readr, igraph, philentropy
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 7.1.1
+Suggests: testthat
