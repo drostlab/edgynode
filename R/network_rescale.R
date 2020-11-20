@@ -22,7 +22,7 @@ network_rescale <- function (adj_mat, to = c(0, 100)) {
   diag(mat_adj) <- 0
 
   if (!isSymmetric(mat_adj))
-    stop("Please provide a symmetric matrix as 'adj_mat' input for network_rescale().", call. = FALSE)
+    warning("Please provide a symmetric matrix as 'adj_mat' input for network_rescale().", call. = FALSE)
 
   if (dplyr::between(min(mat_adj), -1L, -0.8) && dplyr::between(max(mat_adj), 0.8, 1L))
     warning("It seems like your input matrix contains values of correlation coefficients range(-1,1).",

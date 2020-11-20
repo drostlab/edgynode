@@ -87,10 +87,10 @@ network_compare <-
             add_rownames = NA,
             ...) {
     if (!is.matrix(adj_mat_x))
-      stop("Please provide a numeric matrix as adj_mat_x.", call. = FALSE)
+      warning("Please provide a numeric matrix as adj_mat_x.", call. = FALSE)
 
     if (!is.matrix(adj_mat_y))
-      stop("Please provide a numeric matrix as adj_mat_y.", call. = FALSE)
+      warning("Please provide a numeric matrix as adj_mat_y.", call. = FALSE)
 
     #Creating the igraph objects
     g1 <-
