@@ -1,2 +1,2 @@
 # edgynode
-Statistical assessment and simulated evolution of gene regulatory networks
+## Statistical assessment and simulated evolution of gene regulatory networks
