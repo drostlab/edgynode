@@ -4,7 +4,7 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to PPCOR output file
-#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 #' # import PPCOR specific output
 #' ppcor_parsed <- ppcor(ppcor_output)
 #' # look at output

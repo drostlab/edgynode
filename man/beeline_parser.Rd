@@ -17,13 +17,13 @@ of any BEELINE tool.
 }
 \examples{
 # import BEELINE output file
-beeline_out_folder <- system.file('beeline_examples', package = 'scNetworkR')
-beeline_list <- beeline_parser(beeline_out_folder)
+beeline_out_folder <- system.file('beeline_examples', package = 'edgynode')
+beeline_list <- beeline_parser(beeline_out_folder, beeline_tool_collection())
 # look at example
 beeline_list
 }
 \seealso{
-\code{\link{GENIE3}}, \code{\link{GRISLI}}
+\code{\link{network_import_genie}}, \code{\link{network_import_grisli}}
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost

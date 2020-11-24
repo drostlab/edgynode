@@ -56,17 +56,17 @@
 #' ##### Compare networks inferred by PPCOR and PIDC
 #' ## Import and rescale PPCOR network
 #' # path to PPCOR output file
-#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 #' # import PPCOR specific output
-#' ppcor_parsed <- PPCOR(ppcor_output)
+#' ppcor_parsed <- ppcor(ppcor_output)
 #' # rescaling PPCOR output
 #' ppcor_rescaled <- network_rescale(ppcor_parsed)
 #'
 #' ## Import and rescale PIDC network
 #' # path to PIDC output file
-#' pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
+#' pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
 #' # import PIDC specific output
-#' pidc_parsed <- PIDC(pidc_output)
+#' pidc_parsed <- pidc(pidc_output)
 #' # rescaling PIDC output
 #' pidc_rescaled <- network_rescale(pidc_parsed)
 #'

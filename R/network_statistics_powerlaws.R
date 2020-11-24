@@ -63,9 +63,9 @@
 #' @export
 #' @examples
 #' # path to PPCOR output file
-#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 #' # import PPCOR output into adjacency matrix
-#' ppcor_parsed <- PPCOR(ppcor_output)
+#' ppcor_parsed <- ppcor(ppcor_output)
 #' # calculate network statistics
 #' ppcor_statistics <- network_statistics_powerlaws(ppcor_parsed)
 #' # look at results
@@ -86,11 +86,11 @@ network_statistics_powerlaws <- function(adj_mat,
                                          force_continuous = FALSE,
                                          implementation = c("plfit", "R.mle"),
                                          ...) {
-  # if (!isSymmetric(mat_adj))
-  # stop(
-  #   "Please provide a symmetric matrix as 'adj_mat' input for network_statistics().",
-  #   call. = FALSE
-  # )
+  if (!isSymmetric(adj_mat))
+   stop(
+     "Please provide a symmetric matrix as 'adj_mat' input for network_statistics().",
+     call. = FALSE
+   )
   g <-
     igraph::graph.adjacency(
       as.matrix(adj_mat[, 2:ncol(adj_mat)]),

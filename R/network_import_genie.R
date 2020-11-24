@@ -4,7 +4,7 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to GENIE3 output file
-#' genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'scNetworkR')
+#' genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'edgynode')
 #' # import GENIE3 specific output
 #' genie3_parsed <- genie(genie3_output)
 #' # look at output

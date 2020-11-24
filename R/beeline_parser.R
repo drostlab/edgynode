@@ -4,11 +4,11 @@
 #' @param data_folder a file path to the BEELINE output folder storing all individual BEELINE tool runs (output folders).
 #' @param name_tool name of the individual BEELINE tool for which output shall be imported (see tool collection with \code{\link{beeline_tool_collection}}).
 #' @author Sergio Vasquez and Hajk-Georg Drost
-#' @seealso \code{\link{GENIE3}}, \code{\link{GRISLI}}
+#' @seealso \code{\link{network_import_genie}}, \code{\link{network_import_grisli}}
 #' @examples
 #' # import BEELINE output file
-#' beeline_out_folder <- system.file('beeline_examples', package = 'scNetworkR')
-#' beeline_list <- beeline_parser(beeline_out_folder)
+#' beeline_out_folder <- system.file('beeline_examples', package = 'edgynode')
+#' beeline_list <- beeline_parser(beeline_out_folder, beeline_tool_collection())
 #' # look at example
 #' beeline_list
 #' @export
@@ -29,14 +29,14 @@ beeline_parser <- function(data_folder, name_tool) {
     stop("Please provide a valid folder path.", call. = FALSE)
 
   if (name_tool == "GENIE3") {
-    res <- GENIE3(file.path(data_folder,
+    res <- genie(file.path(data_folder,
                             "GENIE3",
                             "outFile.csv",
                             fsep = "/"))
   }
 
    if (name_tool == "GRISLI") {
-     res <- GRISLI(file.path(data_folder,
+     res <- grisli(file.path(data_folder,
                               "GRISLI",
                               "0",
                               "outFile.txt",
@@ -79,14 +79,14 @@ beeline_parser <- function(data_folder, name_tool) {
   # }
 
   if (name_tool == "PIDC"){
-    res <- PIDC(file.path(data_folder,
+    res <- pidc(file.path(data_folder,
                           "PIDC",
                           "outFile.txt",
                           fsep = "/"))
   }
 
   if (name_tool == "PPCOR"){
-    res <- PPCOR(file.path(data_folder,
+    res <- ppcor(file.path(data_folder,
                            "PPCOR",
                            "outFile.txt",
                            fsep = "/"))

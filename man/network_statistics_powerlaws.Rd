@@ -101,9 +101,9 @@ the component distribution from a adjacency matrix.
 }
 \examples{
 # path to PPCOR output file
-ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 # import PPCOR output into adjacency matrix
-ppcor_parsed <- PPCOR(ppcor_output)
+ppcor_parsed <- ppcor(ppcor_output)
 # calculate network statistics
 ppcor_statistics <- network_statistics_powerlaws(ppcor_parsed)
 # look at results

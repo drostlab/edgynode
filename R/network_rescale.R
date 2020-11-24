@@ -9,9 +9,9 @@
 #' @export
 #' @examples
 #' # path to GENIE3 output file
-#' genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'scNetworkR')
+#' genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'edgynode')
 #' # parsing the output to an adjacency matrix
-#' genie3_parsed <- GENIE3(genie3_output)
+#' genie3_parsed <- genie(genie3_output)
 #' # rescaling the matrix
 #' rescaled <- network_rescale(genie3_parsed)
 #' # Visualize result
@@ -29,6 +29,8 @@ network_rescale <- function (adj_mat, to = c(0, 100)) {
             " Please be aware that scaling these values between [0,100] means that a rescaled value of 50 encodes corellation values of 0 (uncorrelated) which may make interpretations more difficult.")
 
   rescaled_mat <- scales::rescale(mat_adj, to = to)
-  result <- dplyr::bind_cols(adj_mat[ , 1], rescaled_mat)
+  result <- tibble::as_tibble(cbind(adj_mat[ , 1], rescaled_mat))
+  result <- as.matrix(result)
+  
   return(result)
 }

@@ -8,14 +8,14 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @export
 #' @examples
-#' # path to PIDC output file
-#' pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
-#' # parsing the output to an adjacency matrix
-#' pidc_parsed <- pidc(pidc_output)
-#' # rescaling the matrix
-#' rescaled <- network_rescale(pidc_parsed)
-#' # Visualize result
-#' network_plot_dendrogram(rescaled)
+#' # path to PPCOR output file
+#' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
+#' # import PPCOR specific output
+#' ppcor_parsed <- ppcor(ppcor_output)
+#' # rescale matrix
+#' ppcor_rescaled <- network_rescale(ppcor_parsed)
+#' # plot dendrogram
+#' network_plot_dendrogram(ppcor_rescaled)
 
 network_plot_dendrogram <- function(adj_mat, dist_method = "euclidean") {
 

@@ -4,11 +4,11 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to GRISLI output file
-#' genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'scNetworkR')
+#' grisli_output <- system.file('beeline_examples/GRISLI/0/outFile.txt', package = 'edgynode')
 #' # import GENIE3 specific output
-#' genie3_parsed <- genie(genie3_output)
+#' grisli_parsed <- grisli(grisli_output)
 #' # look at output
-#' head(genie3_parsed)
+#' head(grisli_parsed)
 #' @export
 
 grisli <- function(file_path) {
@@ -23,7 +23,7 @@ grisli <- function(file_path) {
         delim = ","
       )
     ))
-  GRISLI(GRISLI_output)[1] <- "Gene"
+  grisli(GRISLI_output)[1] <- "Gene"
 
   result <- data.matrix(GRISLI_output[,2:ncol(GRISLI_output)])
 

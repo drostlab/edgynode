@@ -4,7 +4,7 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to PIDC output file
-#' pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
+#' pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
 #' # import PIDC specific output
 #' pidc_parsed <- pidc(pidc_output)
 #' # look at output
@@ -43,7 +43,7 @@ pidc <- function(file_path) {
 
   row.names(result) <- res[,1]
 
-  res[nrow(res), 1] <- res[1, ncol(res)]
+  result[nrow(result), 1] <- result[1, ncol(result)]
 
   result <- as.matrix(result)
 

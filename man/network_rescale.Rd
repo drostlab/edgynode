@@ -19,9 +19,9 @@ scales package.
 }
 \examples{
 # path to GENIE3 output file
-genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'scNetworkR')
+genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'edgynode')
 # parsing the output to an adjacency matrix
-genie3_parsed <- GENIE3(genie3_output)
+genie3_parsed <- genie(genie3_output)
 # rescaling the matrix
 rescaled <- network_rescale(genie3_parsed)
 # Visualize result
