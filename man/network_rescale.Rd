@@ -25,7 +25,7 @@ genie3_parsed <- genie(genie3_output)
 # rescaling the matrix
 rescaled <- network_rescale(genie3_parsed)
 # Visualize result
-rescaled
+head(rescaled)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost

@@ -4,7 +4,7 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to GRISLI output file
-#' grisli_output <- system.file('beeline_examples/GRISLI/0/outFile.txt', package = 'edgynode')
+#' grisli_output <- system.file('beeline_examples/GRISLI/outFile.txt', package = 'edgynode')
 #' # import GENIE3 specific output
 #' grisli_parsed <- grisli(grisli_output)
 #' # look at output

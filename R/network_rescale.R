@@ -15,7 +15,7 @@
 #' # rescaling the matrix
 #' rescaled <- network_rescale(genie3_parsed)
 #' # Visualize result
-#' rescaled
+#' head(rescaled)
 
 network_rescale <- function (adj_mat, to = c(0, 100)) {
   mat_adj <- as.matrix(adj_mat[ , 2:ncol(adj_mat)])
