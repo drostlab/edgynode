@@ -2,7 +2,7 @@ context("Test: pidc() ")
 
 test_that("pidc() correctly imports BEELINE PIDC output.", {
 
-  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
+  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
   # import PIDC specific output
   pidc_parsed <- pidc(pidc_output)
 

@@ -3,7 +3,7 @@ context("Test: network_rescale() ")
 test_that("the rescale adjacency matrix function is working correctly", {
 
   # path to PIDC output file
-  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
+  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
   # parsing the output to an adjacency matrix
   pidc_parsed <- pidc(pidc_output)
   # rescaling the matrix
