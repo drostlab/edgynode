@@ -82,25 +82,27 @@ function to compare two adjacency matrices.
 }
 \examples{
 ##### Compare networks inferred by PPCOR and PIDC
-## Import and rescale PPCOR network
-# path to PPCOR output file
-ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
-# import PPCOR specific output
-ppcor_parsed <- ppcor(ppcor_output)
-# rescaling PPCOR output
-ppcor_rescaled <- network_rescale(ppcor_parsed)
+## Import and rescale GENIE3 network
+# path to GENIE3 output file
+genie_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'edgynode')
+# import GENIE3 specific output
+genie_parsed <- genie(genie_output)
+# rescaling GENIE3 output
+genie_rescaled <- network_rescale(genie_parsed)
 
 ## Import and rescale PIDC network
 # path to PIDC output file
 pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
 # import PIDC specific output
 pidc_parsed <- pidc(pidc_output)
+#Set diagonal values
+diag(pidc_parsed) <- 1
 # rescaling PIDC output
 pidc_rescaled <- network_rescale(pidc_parsed)
 
 
 ### compare both networks
-compared <- network_compare(ppcor_rescaled, pidc_rescaled)
+compared <- network_compare(genie_rescaled, pidc_rescaled)
 # Visualize output
 compared
 }

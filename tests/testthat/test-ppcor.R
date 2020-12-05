@@ -2,7 +2,7 @@ context("Test: ppcor() ")
 
 test_that("ppcor() correctly imports BEELINE PPCOR output.", {
 
-  ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+  ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
   # import PPCOR specific output
   ppcor_parsed <- ppcor(ppcor_output)
 
