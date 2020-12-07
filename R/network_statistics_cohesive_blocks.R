@@ -69,7 +69,7 @@ network_statistics_cohesive_blocks <-
 
     # Creating the igraph object
     g <-
-      igraph::graph.adjacency(as.matrix(adj_mat[, 2:ncol(adj_mat)]),
+      igraph::graph.adjacency(as.matrix(adj_mat),
                               weighted = weighted,
                               mode = mode,
                               diag = diag,
