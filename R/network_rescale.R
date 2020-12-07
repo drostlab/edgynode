@@ -31,7 +31,7 @@ network_rescale <- function (adj_mat, to = c(0, 100)) {
     warning("The matrix provided as input for network_rescale() was coerced into symmetric.")
     adj_mat <- make_symmetric(as.matrix(adj_mat))
 
-  if (dplyr::between(min(adj_mat), -1L, -0.8) && dplyr::between(max(adj_mat), 0.8, 1L))
+  if (dplyr::between(min(adj_mat), -1L, -0.1) && dplyr::between(max(adj_mat), 0.1, 1L))
     warning("It seems like your input matrix contains values of correlation coefficients range(-1,1).",
             " Please be aware that for negative values the absolute value will be taken before rescaling.")
     adj_mat <- abs(adj_mat)

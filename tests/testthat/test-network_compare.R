@@ -3,9 +3,9 @@ context("Test: network_compare() ")
 test_that("the network_compare() function is working correctly", {
 
   # path to PPCOR output file
-  ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
+  ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
   # path to PIDC output file
-  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'scNetworkR')
+  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
   # import PPCOR specific output
   ppcor_parsed <- ppcor(ppcor_output)
   # import PIDC specific output
@@ -14,10 +14,16 @@ test_that("the network_compare() function is working correctly", {
   ppcor_rescaled <- network_rescale(ppcor_parsed)
   # rescaling PIDC output
   pidc_rescaled <- network_rescale(pidc_parsed)
-  # making the comparison
-  compared <- network_compare(ppcor_rescaled, pidc_rescaled)
-
-  expect_equal(length(compared), 5)
-  expect_true(all(is.double(compared)))
-
+  # making the comparisons
+  
+  expect_true(is.numeric(network_compare(ppcor_rescaled, pidc_rescaled)))
+  expect_false(network_compare(ppcor_rescaled, pidc_rescaled) == 0)
+  expect_true(is.numeric(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "nmi")))
+  expect_false(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "nmi") == 0)
+  expect_true(is.numeric(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "split.join")))
+  expect_false(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "split.join") == 0)
+  expect_true(is.numeric(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "rand")))
+  expect_false(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "rand") == 0)
+  expect_true(is.numeric(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "adjusted.rand")))
+  expect_false(network_compare(ppcor_rescaled, pidc_rescaled, comparison_method = "adjusted.rand") == 0)
 })

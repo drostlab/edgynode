@@ -69,10 +69,12 @@ the component distribution from a adjacency matrix.
 ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 # import PPCOR output into adjacency matrix
 ppcor_parsed <- ppcor(ppcor_output)
+# rescaling matrix
+ppcor_rescaled <- network_rescale(ppcor_parsed)
 # calculate network statistics
-ppcor_statistics <- network_statistics_component_distribution(ppcor_parsed)
+ppcor_statistics <- network_statistics_component_distribution(ppcor_rescaled)
 # look at results
-ppcor_statistics
+head(ppcor_statistics)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost

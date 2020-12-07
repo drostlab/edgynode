@@ -2,15 +2,17 @@ context("Test: network_statistics() ")
 
 test_that("the network_statistics function is working correctly", {
 
-  # path to PPCOR output file
-  ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'scNetworkR')
-  # import PPCOR output into adjacency matrix
-  ppcor_parsed <- ppcor(ppcor_output)
-  # calculate network statistics
-  ppcor_statistics <- network_statistics(ppcor_parsed)
-  # visualize
-  ppcor_statistics
-
-  expect_equal(length(ppcor_statistics), 5)
+  # path to PIDC output file
+  pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
+  # import PIDC output into adjacency matrix
+  pidc_parsed <- pidc(pidc_output)
+  # rescaling matrix
+  pidc_rescaled <- network_rescale(pidc_parsed)
+  
+  #Tests for network_statistics_...( ) functions
+  
+  expect_equal(length(network_statistics_component_distribution(pidc_rescaled)), 20)
+  expect_equal(length(network_statistics_degree_distribution(pidc_rescaled)), 19)
+  expect_equal(length(network_statistics_powerlaws(pidc_rescaled)), 6)
 
 })

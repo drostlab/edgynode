@@ -66,11 +66,13 @@
 #' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 #' # import PPCOR output into adjacency matrix
 #' ppcor_parsed <- ppcor(ppcor_output)
+#' # rescaling matrix
+#' ppcor_rescaled <- network_rescale(ppcor_parsed)
 #' # calculate network statistics
-#' ppcor_statistics <- network_statistics_powerlaws(ppcor_parsed)
+#' ppcor_statistics <- network_statistics_powerlaws(ppcor_rescaled)
 #' # look at results
-#' ppcor_statistics
-#'
+#' head(ppcor_statistics)
+
 network_statistics_powerlaws <- function(adj_mat,
                                          weighted = TRUE,
                                          adjacency_mode = "undirected",
@@ -91,9 +93,9 @@ network_statistics_powerlaws <- function(adj_mat,
      "Please provide a symmetric matrix as 'adj_mat' input for network_statistics().",
      call. = FALSE
    )
-  g <-
+  graph <-
     igraph::graph.adjacency(
-      as.matrix(adj_mat[, 2:ncol(adj_mat)]),
+      as.matrix(adj_mat),
       weighted = weighted,
       mode = adjacency_mode,
       diag = diag,
@@ -102,8 +104,7 @@ network_statistics_powerlaws <- function(adj_mat,
       ...
     )
 
-  g_degree <- igraph::degree(
-    g,
+  g_degree <- igraph::degree(graph = graph,
     v = vertex_ids,
     mode = degree_mode,
     loops = loops,

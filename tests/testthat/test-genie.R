@@ -11,6 +11,6 @@ test_that("genie() correctly imports BEELINE GENIE3 output.", {
  expect_true(all(is.character(row.names(genie3_parsed))))
  expect_true(all(apply(genie3_parsed, 2, is.numeric)))
  expect_error(genie("path/that/does/not/exist"))
- expect_true(isSymmetric(genie3_parsed) == TRUE)
+ expect_true(isSymmetric(network_rescale(genie3_parsed)) == TRUE)
 
 })
