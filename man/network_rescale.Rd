@@ -13,17 +13,19 @@ network_rescale(adj_mat, to = c(0, 100))
 Default is \code{to = c(0, 100)}.}
 }
 \description{
-This function rescales to a 0 to 1 scale using the values
+This function rescales to a 0 to 100 scale using the values
 present in the matrix. It is based on the rescale function of the
-scales package.
+scales package. It will make the matrix symmetric by mirroring the upper
+half if it isn't. If negative values present, their absolute value will be
+taken.
 }
 \examples{
-# path to GENIE3 output file
-genie3_output <- system.file('beeline_examples/GENIE3/outFile.csv', package = 'edgynode')
+# path to ppcor output file
+ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
 # parsing the output to an adjacency matrix
-genie3_parsed <- genie(genie3_output)
+ppcor_parsed <- ppcor(ppcor_output)
 # rescaling the matrix
-rescaled <- network_rescale(genie3_parsed)
+rescaled <- network_rescale(ppcor_parsed)
 # Visualize result
 head(rescaled)
 }
