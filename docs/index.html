@@ -65,6 +65,69 @@
 <div id="statistical-assessment-and-simulated-evolution-of-gene-regulatory-networks" class="section level2">
 <h2 class="hasAnchor">
 <a href="#statistical-assessment-and-simulated-evolution-of-gene-regulatory-networks" class="anchor"></a>Statistical assessment and simulated evolution of gene regulatory networks</h2>
+<div id="motivation" class="section level3">
+<h3 class="hasAnchor">
+<a href="#motivation" class="anchor"></a>Motivation</h3>
+<p>The expression of genes is a fundamental molecular mechanism allowing organisms to produce proteins that govern all functional aspects of living cells. In the past years, complex regulatory mechanisms have been described that place transcription factors (TFs), transposable elements (TEs), and regulatory RNA as main actors governing gene expression. Deciphering these interactions between genes and their regulators in various biological contexts such as development or stress response are of immense interest to life scientists. Given the recent advancements in next- generation sequencing technologies, the inference of these regulatory interactions from (single-cell) RNAseq, ChIPseq, and ATACseq data become feasible and are able to paint a genome-wide picture of gene regulation.</p>
+</div>
+<div id="short-package-description" class="section level3">
+<h3 class="hasAnchor">
+<a href="#short-package-description" class="anchor"></a>Short package description</h3>
+<p>The <code>edgynode</code> package imports inferred gene regulatory networks and performs network statistics and network simulation procedures to investigate the topology and structure of the GRN at hand.</p>
+</div>
+</div>
+<div id="install-edgynode" class="section level2">
+<h2 class="hasAnchor">
+<a href="#install-edgynode" class="anchor"></a>Install <code>edgynode</code>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw">if</span> <span class="op">(</span><span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/ns-load.html">requireNamespace</a></span><span class="op">(</span><span class="st">"BiocManager"</span>, quietly <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span>
+    <span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span><span class="op">(</span><span class="st">"BiocManager"</span><span class="op">)</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="op">)</span>
+<span class="co"># Install package dependencies</span>
+<span class="fu">BiocManager</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/BiocManager/man/install.html">install</a></span><span class="op">(</span><span class="st">"monocle"</span><span class="op">)</span>
+
+<span class="co"># install edgynode from GitHub</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://devtools.r-lib.org//reference/remote-reexports.html">install_github</a></span><span class="op">(</span><span class="st">"drostlab/edgynode"</span><span class="op">)</span></code></pre></div>
+</div>
+<div id="use-cases" class="section level2">
+<h2 class="hasAnchor">
+<a href="#use-cases" class="anchor"></a>Use Cases</h2>
+<p>Learn <code>edgynode</code> by reading these tutorials:</p>
+<ul>
+<li><a href="https://drostlab.github.io/edgynode/articles/Introduction.html">Introduction to the <code>edgynode</code> package</a></li>
+</ul>
+</div>
+<div id="example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#example" class="anchor"></a>Example</h2>
+<div id="small-example-with-internal-dataset" class="section level3">
+<h3 class="hasAnchor">
+<a href="#small-example-with-internal-dataset" class="anchor"></a>Small example with internal dataset</h3>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co">##### Compare networks inferred by PPCOR and PIDC</span>
+<span class="co">## Import and rescale PPCOR network</span>
+<span class="co"># path to PPCOR output file</span>
+<span class="va">ppcor_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'beeline_examples/PPCOR/outFile.txt'</span>, package <span class="op">=</span> <span class="st">'edgynode'</span><span class="op">)</span>
+<span class="co"># import PPCOR specific output</span>
+<span class="va">ppcor_parsed</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu"><a href="reference/ppcor.html">ppcor</a></span><span class="op">(</span><span class="va">ppcor_output</span><span class="op">)</span>
+<span class="co"># rescaling PPCOR output</span>
+<span class="va">ppcor_rescaled</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu"><a href="reference/network_rescale.html">network_rescale</a></span><span class="op">(</span><span class="va">ppcor_parsed</span><span class="op">)</span>
+
+<span class="co">## Import and rescale PIDC network</span>
+<span class="co"># path to PIDC output file</span>
+<span class="va">pidc_output</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html">system.file</a></span><span class="op">(</span><span class="st">'beeline_examples/PIDC/outFile.txt'</span>, package <span class="op">=</span> <span class="st">'edgynode'</span><span class="op">)</span>
+<span class="co"># import PIDC specific output</span>
+<span class="va">pidc_parsed</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu"><a href="reference/pidc.html">pidc</a></span><span class="op">(</span><span class="va">pidc_output</span><span class="op">)</span>
+<span class="co"># rescaling PIDC output</span>
+<span class="va">pidc_rescaled</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu"><a href="reference/network_rescale.html">network_rescale</a></span><span class="op">(</span><span class="va">pidc_parsed</span><span class="op">)</span>
+
+
+<span class="co">### compare both networks</span>
+<span class="va">compared</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu"><a href="reference/network_compare.html">network_compare</a></span><span class="op">(</span><span class="va">ppcor_rescaled</span>, <span class="va">pidc_rescaled</span><span class="op">)</span>
+<span class="co"># Visualize output</span>
+<span class="va">compared</span></code></pre></div>
+</div>
 </div>
 </div>
   </div>

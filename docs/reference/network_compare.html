@@ -114,17 +114,17 @@ function to compare two adjacency matrices." />
 function to compare two adjacency matrices.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>network_compare</span>(
-  <span class='kw'>adj_mat_x</span>,
-  <span class='kw'>adj_mat_y</span>,
-  comparison_method = <span class='st'>"vi"</span>,
-  weighted = <span class='fl'>TRUE</span>,
-  mode = <span class='st'>"undirected"</span>,
-  diag = <span class='fl'>TRUE</span>,
-  add_colnames = <span class='kw'>NULL</span>,
-  add_rownames = <span class='fl'>NA</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>network_compare</span><span class='op'>(</span>
+  <span class='va'>adj_mat_x</span>,
+  <span class='va'>adj_mat_y</span>,
+  comparison_method <span class='op'>=</span> <span class='st'>"vi"</span>,
+  weighted <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  mode <span class='op'>=</span> <span class='st'>"undirected"</span>,
+  diag <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  add_colnames <span class='op'>=</span> <span class='cn'>NULL</span>,
+  add_rownames <span class='op'>=</span> <span class='cn'>NA</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -211,26 +211,35 @@ itemize
     <pre class="examples"><div class='input'><span class='co'>##### Compare networks inferred by PPCOR and PIDC</span>
 <span class='co'>## Import and rescale PPCOR network</span>
 <span class='co'># path to PPCOR output file</span>
-<span class='kw'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package = <span class='st'>'scNetworkR'</span>)
+<span class='va'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
 <span class='co'># import PPCOR specific output</span>
-<span class='kw'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'>PPCOR</span>(<span class='kw'>ppcor_output</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in PPCOR(ppcor_output): could not find function "PPCOR"</span></div><div class='input'><span class='co'># rescaling PPCOR output</span>
-<span class='kw'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span>(<span class='kw'>ppcor_parsed</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in as.matrix(adj_mat[, 2:ncol(adj_mat)]): object 'ppcor_parsed' not found</span></div><div class='input'>
+<span class='va'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ppcor.html'>ppcor</a></span><span class='op'>(</span><span class='va'>ppcor_output</span><span class='op'>)</span>
+<span class='co'># rescaling PPCOR output</span>
+<span class='va'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please provide a symmetric matrix as 'adj_mat' input for network_rescale().</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The `x` argument of `as_tibble.matrix()` must have unique column names if `.name_repair` is omitted as of tibble 2.0.0.</span>
+#&gt; <span class='warning'>Using compatibility `.name_repair`.</span>
+#&gt; <span class='warning'><span style='color: #555555;'>This warning is displayed once every 8 hours.</span><span></span>
+#&gt; <span class='warning'></span><span style='color: #555555;'>Call `lifecycle::last_warnings()` to see where this warning was generated.</span><span></span></div><div class='input'>
 <span class='co'>## Import and rescale PIDC network</span>
 <span class='co'># path to PIDC output file</span>
-<span class='kw'>pidc_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>'beeline_examples/PIDC/outFile.txt'</span>, package = <span class='st'>'scNetworkR'</span>)
+<span class='va'>pidc_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PIDC/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
 <span class='co'># import PIDC specific output</span>
-<span class='kw'>pidc_parsed</span> <span class='op'>&lt;-</span> <span class='fu'>PIDC</span>(<span class='kw'>pidc_output</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in PIDC(pidc_output): could not find function "PIDC"</span></div><div class='input'><span class='co'># rescaling PIDC output</span>
-<span class='kw'>pidc_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span>(<span class='kw'>pidc_parsed</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in as.matrix(adj_mat[, 2:ncol(adj_mat)]): object 'pidc_parsed' not found</span></div><div class='input'>
+<span class='va'>pidc_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='pidc.html'>pidc</a></span><span class='op'>(</span><span class='va'>pidc_output</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>New names:</span>
+#&gt; <span class='message'>* `` -&gt; ...1</span>
+#&gt; <span class='message'>* `` -&gt; ...2</span>
+#&gt; <span class='message'>* `` -&gt; ...3</span>
+#&gt; <span class='message'>* `` -&gt; ...4</span>
+#&gt; <span class='message'>* `` -&gt; ...5</span>
+#&gt; <span class='message'>* ...</span></div><div class='input'><span class='co'># rescaling PIDC output</span>
+<span class='va'>pidc_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>pidc_parsed</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: Please provide a symmetric matrix as 'adj_mat' input for network_rescale().</span></div><div class='output co'>#&gt; <span class='error'>Error in if (dplyr::between(min(mat_adj), -1L, -0.8) &amp;&amp; dplyr::between(max(mat_adj),     0.8, 1L)) warning("It seems like your input matrix contains values of correlation coefficients range(-1,1).",     " Please be aware that scaling these values between [0,100] means that a rescaled value of 50 encodes corellation values of 0 (uncorrelated) which may make interpretations more difficult."): missing value where TRUE/FALSE needed</span></div><div class='input'>
 
 <span class='co'>### compare both networks</span>
-<span class='kw'>compared</span> <span class='op'>&lt;-</span> <span class='fu'>network_compare</span>(<span class='kw'>ppcor_rescaled</span>, <span class='kw'>pidc_rescaled</span>)
-</div><div class='output co'>#&gt; <span class='error'>Error in network_compare(ppcor_rescaled, pidc_rescaled): object 'ppcor_rescaled' not found</span></div><div class='input'><span class='co'># Visualize output</span>
-<span class='kw'>compared</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'compared' not found</span></div></pre>
+<span class='va'>compared</span> <span class='op'>&lt;-</span> <span class='fu'>network_compare</span><span class='op'>(</span><span class='va'>ppcor_rescaled</span>, <span class='va'>pidc_rescaled</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in network_compare(ppcor_rescaled, pidc_rescaled): object 'pidc_rescaled' not found</span></div><div class='input'><span class='co'># Visualize output</span>
+<span class='va'>compared</span>
+</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'compared' not found</span></div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
