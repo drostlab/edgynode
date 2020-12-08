@@ -80,6 +80,6 @@ network_statistics_degree_distribution <-
         ...
       )
     #distributions and cohesive blocks need graph objects
-    res <- degree_distribution(g)
+    res <- igraph::degree_distribution(graph = g)
     return(res)
   }
