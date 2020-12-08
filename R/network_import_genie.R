@@ -25,8 +25,20 @@ genie <- function(file_path) {
     ))
   GENIE3_output <- GENIE3_output[-1]
   
-  names(GENIE3_output)[1] <- "rowname"
-  res <- tibble::column_to_rownames(GENIE3_output)
+  
+  first_line <- stringr::str_split(readr::read_lines(file = file_path, n_max = 1), ",")
+  genie_col_names <-
+    stringr::str_replace_all(noquote(as.vector(unlist(first_line)))[-1], "\"", "")
+  
+  # names(GENIE3_output)[1] <- "rowname"
+  names(GENIE3_output) <- genie_col_names
+  GENIE3_output <- dplyr::bind_cols(tibble::tibble(gene_names = genie_col_names), GENIE3_output)
+  
+  res <- tibble::column_to_rownames(GENIE3_output, var = "gene_names")
+  res <- data.matrix(res)
+  
+  if (!isSymmetric(res))
+    warning("The matrix provided as input for genie() was not symmetric.")
 
-  return(data.matrix(res))
+  return(res)
 }
