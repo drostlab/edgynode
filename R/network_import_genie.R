@@ -23,6 +23,8 @@ genie <- function(file_path) {
         delim = ","
       )
     ))
+  GENIE3_output <- GENIE3_output[-1]
+  
   names(GENIE3_output)[1] <- "rowname"
   res <- tibble::column_to_rownames(GENIE3_output)
 
