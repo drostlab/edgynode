@@ -100,11 +100,8 @@ diag(pidc_parsed) <- 1
 # rescaling PIDC output
 pidc_rescaled <- network_rescale(pidc_parsed)
 
-
 ### compare both networks
-compared <- network_compare(genie_rescaled, pidc_rescaled)
-# Visualize output
-compared
+network_compare(genie_rescaled, pidc_rescaled)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost
