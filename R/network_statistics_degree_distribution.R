@@ -40,6 +40,10 @@
 #' }
 #' @param add_rownames a character value specifying whether to add the row names as vertex attributes. Possible values the same as the previous argument. By default row names are not added. If ‘add.rownames’ and ‘add.colnames’ specify the same vertex attribute, then the former is ignored.
 #' @param \dots additional arguments passed on to \code{\link[igraph]{graph_from_adjacency_matrix}}.
+#' @param degree_mode Character string, “out” for out-degree, “in” for in-degree or “total” for the sum of the two. For undirected graphs this argument is ignored. “all” is a synonym of “total”.
+#' @param loops Logical; whether the loop edges are also counted.
+#' @param normalized Logical scalar, whether to normalize the degree. If TRUE then the result is divided by n-1, where n is the number of vertices in the graph.
+#' @param cumulative Logical; whether the cumulative degree distribution is to be calculated.
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @export
 #' @examples
@@ -56,11 +60,15 @@
 
 network_statistics_degree_distribution <-
   function (adj_mat,
-            weighted = TRUE,
+            weighted = NULL,
             mode = "undirected",
             diag = TRUE,
             add_colnames = NULL,
             add_rownames = NA,
+            degree_mode = "total",
+            loops = TRUE,
+            normalized = FALSE,
+            cumulative = TRUE,
             ...) {
     if (!isSymmetric(adj_mat))
       stop(
@@ -80,6 +88,6 @@ network_statistics_degree_distribution <-
         ...
       )
     #distributions and cohesive blocks need graph objects
-    res <- igraph::degree_distribution(graph = g)
+    res <- igraph::degree_distribution(graph = g, normalized=normalized, cumulative=cumulative, mode=degree_mode, loops=loops)
     return(res)
   }

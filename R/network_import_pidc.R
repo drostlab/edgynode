@@ -21,6 +21,7 @@ pidc <- function(file_path) {
   PIDC_output <- PIDC_output[-1,]
 
   ngenes <- length(unique(PIDC_output$GeneX))
+  message("Repairing names...")
   res <- tibble::as_tibble(matrix(NA_real_, ngenes, ngenes), .name_repair = "unique")
   gene_names <- unique(PIDC_output$GeneX)
 

@@ -22,8 +22,6 @@
 
 network_make_binary <- function (adj_mat, threshold){
   
-  weights <- adj_mat
-  
   binary <- apply(adj_mat, FUN = function(x) ifelse(x>threshold, yes = 1, no = 0), MARGIN = c(1,2))
   
   return(binary)
