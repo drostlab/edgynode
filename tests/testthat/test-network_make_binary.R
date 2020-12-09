@@ -13,6 +13,6 @@ test_that("transformation from weighted to binary is working correctly", {
   
   expect_equal(nrow(ppcor_binary), 19)
   expect_equal(ncol(ppcor_binary), 19)
-  expect_that(ppcor_binary, 1, all(apply(is_less_than(1.1))))
+  expect_true(all(apply(ppcor_binary, c(1,2), function (x) x<1.1)))
   
 })
