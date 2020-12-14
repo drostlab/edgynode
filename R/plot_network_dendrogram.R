@@ -15,9 +15,9 @@
 #' # rescale matrix
 #' ppcor_rescaled <- network_rescale(ppcor_parsed)
 #' # plot dendrogram
-#' network_plot_dendrogram(ppcor_rescaled)
+#' plot_network_dendrogram(ppcor_rescaled)
 
-network_plot_dendrogram <- function(adj_mat, dist_method = "euclidean") {
+plot_network_dendrogram <- function(adj_mat, dist_method = "euclidean") {
 
   # Plotting a dendrogram
   plot(hclust(stats::dist(t(adj_mat[2:nrow(adj_mat), 2:ncol(adj_mat)]))))
