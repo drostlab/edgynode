@@ -4,13 +4,15 @@
 \alias{network_rescale}
 \title{Rescaling function customized for adjacency matrices}
 \usage{
-network_rescale(adj_mat, to = c(0, 100))
+network_rescale(adj_mat, to = c(0, 100), print_message = TRUE)
 }
 \arguments{
 \item{adj_mat}{an adjacency matrix to normalize.}
 
 \item{to}{interval in which transformation should be done.
 Default is \code{to = c(0, 100)}.}
+
+\item{print_message}{a logical value indicating whether or not a re-scaling message shall be printed.}
 }
 \description{
 This function rescales to a 0 to 100 scale using the values

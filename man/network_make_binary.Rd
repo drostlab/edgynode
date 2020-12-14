@@ -4,13 +4,15 @@
 \alias{network_make_binary}
 \title{Matrix convert to binary}
 \usage{
-network_make_binary(adj_mat, threshold)
+network_make_binary(adj_mat, threshold, print_message = TRUE)
 }
 \arguments{
 \item{adj_mat}{adjacency matrix to be converted.}
 
-\item{threshold}{it's recommended to use the network_rescale() function
-before using this function. This will require a threshold with value 0-100.}
+\item{threshold}{we recommended to use \code{\link{network_rescale}}
+before using this function. Re-scaling will transform all values into a range [0,100].}
+
+\item{print_message}{a logical value indicating whether or not a threshold message shall be printed.}
 }
 \description{
 This function takes a weighted adjacency matrix and separates
@@ -27,8 +29,8 @@ ppcor_rescaled <- network_rescale(ppcor_parsed)
  # make the binary matrix
 ppcor_binary <- network_make_binary(ppcor_rescaled, 70)
  # to see the differences you may use:
- network_plot_dendrogram(ppcor_rescaled)
- network_plot_dendrogram(ppcor_binary)
+ plot_network_dendrogram(ppcor_rescaled)
+ plot_network_dendrogram(ppcor_binary)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost

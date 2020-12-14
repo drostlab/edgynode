@@ -2,22 +2,37 @@
 % Please edit documentation in R/plot_network_weight_distribution.R
 \name{plot_network_weight_distribution}
 \alias{plot_network_weight_distribution}
-\title{Generate correlation heatmap}
+\title{Plot the weight distribution for all edges of a gene}
 \usage{
 plot_network_weight_distribution(
   adj_mat,
   xlab = "Edge weight",
   ylab = "Gene name",
-  threshold = 70
+  threshold
 )
 }
 \arguments{
-\item{adj_mat}{adjacency matrix to be converted.}
+\item{adj_mat}{a weighted adjacency matrix.}
+
+\item{xlab}{x-axis label.}
+
+\item{ylab}{y-axis label.}
+
+\item{threshold}{a integer value between [0, 100] indicating where to draw the red vertical line.}
 }
 \description{
-This function takes a weighted adjacency matrix and generates 
-a heatmap in which the highest values are moved towards the top left corner
-to improve readability
+This function takes a weighted adjacency matrix and plots
+the weight distribution for all edges of a gene.
+}
+\examples{
+# path to PPCOR output file
+ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
+# import PPCOR output into adjacency matrix
+ppcor_parsed <- ppcor(ppcor_output)
+# rescaling weighted adjacency matrix to range [0,100]
+ppcor_rescaled <- network_rescale(ppcor_parsed)
+# visualize weight distributions over all edges for each gene
+plot_network_weight_distribution(ppcor_rescaled, threshold = 70)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost
