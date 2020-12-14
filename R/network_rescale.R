@@ -7,6 +7,7 @@
 #' @param adj_mat an adjacency matrix to normalize.
 #' @param to interval in which transformation should be done.
 #' Default is \code{to = c(0, 100)}.
+#' @param print_message a logical value indicating whether or not a re-scaling message shall be printed.
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @export
 #' @examples
@@ -19,26 +20,38 @@
 #' # Visualize result
 #' head(rescaled)
 
-network_rescale <- function (adj_mat, to = c(0, 100)) {
-  
-  if (is.character(adj_mat[1,1]) == TRUE)
-    warning("The first column consists of names.")
+network_rescale <-
+  function (adj_mat,
+            to = c(0, 100),
+            print_message = TRUE) {
+    
+    if (is.character(adj_mat[1, 1]) == TRUE)
+      warning("The first column consists of names.")
     #adj_mat <- as.matrix(adj_mat[ , 2:ncol(adj_mat)])
-  
-  diag(adj_mat) <- 0
-
-  if (!isSymmetric(adj_mat))
-    warning("The matrix provided as input for network_rescale() was coerced into symmetric.")
+    
+    diag(adj_mat) <- 0
+    
+    if (!isSymmetric(adj_mat))
+      warning("The matrix provided as input for network_rescale() was coerced into symmetric.")
     adj_mat <- make_symmetric(as.matrix(adj_mat))
-
-  if (dplyr::between(min(adj_mat), -1L, -0.1) && dplyr::between(max(adj_mat), 0.1, 1L))
-    message("It seems like your input matrix contains values of correlation coefficients range(-1,1).",
-            " Please be aware that for negative values the absolute value will be taken before rescaling.",
-            "We transformed all negative values to their absolute values.")
+    
+    if (dplyr::between(min(adj_mat), -1L, -0.1) &&
+        dplyr::between(max(adj_mat), 0.1, 1L)) {
+      if (print_message) {
+        message(
+          "It seems like your input matrix contains values of correlation coefficients range(-1,1).",
+          " Please be aware that for negative values the absolute value will be taken before rescaling.",
+          " We transformed all negative values to their absolute values."
+        )
+      }
+    }
+    
+    
+    # due to value < 0, we transform all negative values to their absolute values
     adj_mat <- abs(adj_mat)
     
-  rescaled_mat <- scales::rescale(adj_mat, to = to)
-  result <- as.matrix(rescaled_mat)
-  
-  return(result)
-}
+    rescaled_mat <- scales::rescale(adj_mat, to = to)
+    result <- as.matrix(rescaled_mat)
+    
+    return(result)
+  }
