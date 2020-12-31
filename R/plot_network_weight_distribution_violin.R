@@ -1,4 +1,4 @@
-#' @title Plot the weight distribution for all edges of a gene
+#' @title Plot the weight distribution as violin plot
 #' @description This function takes a weighted adjacency matrix and plots
 #' the weight distribution for all edges of a gene.
 #' @param adj_mat a weighted adjacency matrix.
@@ -14,10 +14,10 @@
 #' # rescaling weighted adjacency matrix to range [0,100]
 #' ppcor_rescaled <- network_rescale(ppcor_parsed)
 #' # visualize weight distributions over all edges for each gene
-#' plot_network_weight_distribution(ppcor_rescaled, threshold = 70)
+#' plot_network_weight_distribution_violin(ppcor_rescaled, threshold = 70)
 #' @export
 
-plot_network_weight_distribution <-
+plot_network_weight_distribution_violin <-
   function (adj_mat,
             xlab = "Edge weight",
             ylab = "Gene name",
@@ -26,14 +26,16 @@ plot_network_weight_distribution <-
       tidyr::pivot_longer(tibble::as_tibble(adj_mat), cols = 1:ncol(adj_mat))
     
     p <-
-      ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + ggplot2::geom_point() +
-      ggplot2::xlab(xlab) + ggplot2::ylab(ylab) +
-      ggplot2::geom_vline(
+      ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + 
+      ggplot2::geom_point(ggplot2::aes(y = name, color = value), size = .5, alpha = 0.8) +
+      ggplot2::geom_violin(alpha = 0.5) +
+      ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::geom_vline(
         xintercept = threshold,
         color = "red",
         size = 1.5,
         alpha = 0.3
-      ) + ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+      ) +
+      ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
     
     return(p)
   }

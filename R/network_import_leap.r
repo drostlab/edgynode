@@ -4,7 +4,7 @@
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to LEAP output file
-#' leap_output <- system.file('beeline_examples/LEAP/outFile0.txt', package = 'edgynode')
+#' leap_output <- system.file('beeline_examples/LEAP/leap_results.csv', package = 'edgynode')
 #' # import LEAP specific output
 #' leap_parsed <- leap(leap_output)
 #' # look at output
@@ -16,11 +16,11 @@ leap <- function(file_path) {
   if (!file.exists(file_path))
     stop("Please specify a valid file path to ", file_path, "...", .call = FALSE)
   
-  leap_output <- suppressMessages(suppressWarnings(readr::read_delim(file = file_path, col_names = TRUE, delim = "\t")))
+  leap_output <- suppressMessages(suppressWarnings(readr::read_delim(file = file_path, col_names = TRUE, delim = ",")))
   
-  ngenes <- length(unique(leap_output$Gene1))
+  ngenes <- length(unique(leap_output$`Column gene index`))
   res <- matrix(NA_real_, ngenes, ngenes)
-  gene_names <- unique(leap_output$Gene1)
+  gene_names <- unique(leap_output$`Row gene index`)
   
   colnames(res) <- gene_names
   res <- dplyr::bind_cols(X = gene_names, as.data.frame(res))
@@ -28,10 +28,10 @@ leap <- function(file_path) {
   res <- as.data.frame(res)
   
   
-  for (k in 1:length(leap_output$Score)) {
+  for (k in 1:length(leap_output$Correlation)) {
     
-    res[match(leap_output[k, 1], gene_names),
-        match(leap_output[k, 2], gene_names) + 1] <- leap_output[k, 3]
+    res[match(leap_output[k, 4], gene_names),
+        match(leap_output[k, 5], gene_names) + 1] <- leap_output[k, 2]
     
   }
   
