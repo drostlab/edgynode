@@ -23,11 +23,12 @@ grisli <- function(file_path) {
         delim = ","
       )
     ))
-  grisli(GRISLI_output)[1] <- "Gene"
+  
+  names(GRISLI_output)[1] <- "Gene"
 
-  result <- data.matrix(GRISLI_output[,2:ncol(GRISLI_output)])
+  result <- data.matrix(GRISLI_output[ ,2:ncol(GRISLI_output)])
 
-  row.names(result) <- GRISLI_output[,1]
+  row.names(result) <- GRISLI_output[ ,1]
 
   return(result)
 }
