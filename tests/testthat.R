@@ -1,4 +1,4 @@
 library(testthat)
-library(scNetworkR)
+library(edgynode)
 
-test_check("scNetworkR")
+test_check("edgynode")
