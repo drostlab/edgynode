@@ -1,0 +1,8 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+.Rprofile
+docs
+man-roxygen
+README.html
+README.Rmd
+LICENSE
