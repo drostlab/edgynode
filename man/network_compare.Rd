@@ -101,7 +101,7 @@ diag(pidc_parsed) <- 1
 pidc_rescaled <- network_rescale(pidc_parsed)
 
 ### compare both networks
-network_compare(genie_rescaled, pidc_rescaled)
+# network_compare(genie_rescaled, pidc_rescaled)
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost

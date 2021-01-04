@@ -73,7 +73,7 @@
 #' pidc_rescaled <- network_rescale(pidc_parsed)
 #' 
 #' ### compare both networks
-#' network_compare(genie_rescaled, pidc_rescaled)
+#' # network_compare(genie_rescaled, pidc_rescaled)
 
 
 network_compare <-
