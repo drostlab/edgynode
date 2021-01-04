@@ -1,5 +1,5 @@
 # edgynode
-## Statistical assessment and simulated evolution of gene regulatory networks
+## Statistical Assessment and Visualization of Gene Regulatory Networks
 
 ### Motivation
 
