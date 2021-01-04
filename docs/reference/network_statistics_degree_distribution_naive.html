@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rescaling function customized for adjacency matrices — network_rescale • edgynode</title>
+<title>Calculate the naive degree distribution from binary adjacency matrices — network_statistics_degree_distribution_naive • edgynode</title>
 
 
 <!-- jquery -->
@@ -39,12 +39,9 @@
 
 
 
-<meta property="og:title" content="Rescaling function customized for adjacency matrices — network_rescale" />
-<meta property="og:description" content="This function rescales to a 0 to 100 scale using the values
-present in the matrix. It is based on the rescale function of the
-scales package. It will make the matrix symmetric by mirroring the upper
-half if it isn't. If negative values present, their absolute value will be
-taken." />
+<meta property="og:title" content="Calculate the naive degree distribution from binary adjacency matrices — network_statistics_degree_distribution_naive" />
+<meta property="og:description" content="This function calculates
+the degree distribution from a binary adjacency matrix." />
 
 
 
@@ -107,36 +104,24 @@ taken." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Rescaling function customized for adjacency matrices</h1>
+    <h1>Calculate the naive degree distribution from binary adjacency matrices</h1>
     
-    <div class="hidden name"><code>network_rescale.Rd</code></div>
+    <div class="hidden name"><code>network_statistics_degree_distribution_naive.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function rescales to a 0 to 100 scale using the values
-present in the matrix. It is based on the rescale function of the
-scales package. It will make the matrix symmetric by mirroring the upper
-half if it isn't. If negative values present, their absolute value will be
-taken.</p>
+    <p>This function calculates
+the degree distribution from a binary adjacency matrix.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>network_rescale</span><span class='op'>(</span><span class='va'>adj_mat</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>100</span><span class='op'>)</span>, print_message <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>network_statistics_degree_distribution_naive</span><span class='op'>(</span><span class='va'>adj_mat</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>adj_mat</th>
-      <td><p>an adjacency matrix to normalize.</p></td>
-    </tr>
-    <tr>
-      <th>to</th>
-      <td><p>interval in which transformation should be done.
-Default is <code>to = c(0, 100)</code>.</p></td>
-    </tr>
-    <tr>
-      <th>print_message</th>
-      <td><p>a logical value indicating whether or not a re-scaling message shall be printed.</p></td>
+      <td><p>a symmetrical binary adjacency matrix.</p></td>
     </tr>
     </table>
 
@@ -145,35 +130,40 @@ Default is <code>to = c(0, 100)</code>.</p></td>
     <p>Sergio Vasquez and Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># path to ppcor output file</span>
+    <pre class="examples"><div class='input'><span class='co'># path to PPCOR output file</span>
 <span class='va'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
-<span class='co'># parsing the output to an adjacency matrix</span>
+<span class='co'># import PPCOR output into adjacency matrix</span>
 <span class='va'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ppcor.html'>ppcor</a></span><span class='op'>(</span><span class='va'>ppcor_output</span><span class='op'>)</span>
-<span class='co'># rescaling the matrix</span>
-<span class='va'>rescaled</span> <span class='op'>&lt;-</span> <span class='fu'>network_rescale</span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>It seems like your input matrix contains values of correlation coefficients range(-1,1). Please be aware that for negative values the absolute value will be taken before rescaling. We transformed all negative values to their absolute values.</span></div><div class='input'><span class='co'># Visualize result</span>
-<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>rescaled</span><span class='op'>)</span>
-</div><div class='output co'>#&gt;           DMRT1     FGF9     RSPO1       DHH    CTNNB1      PGD2   WT1mKTS
-#&gt; DMRT1   0.00000 21.29578 19.201584 10.396156 36.254437 12.158182 14.917907
-#&gt; FGF9   21.29578  0.00000 13.787012 52.516509 27.646002 34.103635  7.653306
-#&gt; RSPO1  19.20158 13.78701  0.000000 19.301500 86.885101  4.729058 15.730029
-#&gt; DHH    10.39616 52.51651 19.301500  0.000000  9.937542 46.698354 16.667705
-#&gt; CTNNB1 36.25444 27.64600 86.885101  9.937542  0.000000  2.604611  2.054147
-#&gt; PGD2   12.15818 34.10363  4.729058 46.698354  2.604611  0.000000  4.734473
-#&gt;              SRY      DKK1      WNT4     CBX2       AMH    NR0B1    NR5A1
-#&gt; DMRT1  79.308246 89.470246 33.645266 17.24909 13.010369 11.26526 40.31568
-#&gt; FGF9   21.317186  4.075543 33.198658 30.79540 39.061874 34.87136 34.15264
-#&gt; RSPO1  20.133421  4.660239 89.586138 39.14069  3.430698 41.01352 73.85361
-#&gt; DHH     4.018216 18.231590  7.606054 19.18282 56.297538 35.14721 33.05562
-#&gt; CTNNB1 29.988223  5.646461 98.215426 30.86320  6.413189 38.63306 23.33152
-#&gt; PGD2   10.806533  9.631663 14.867534 30.41108 52.687466 35.02585 23.03107
-#&gt;          WT1pKTS     FOXL2       UGR      SOX9     GATA4
-#&gt; DMRT1  35.667556  8.372022 34.961957 48.802466 12.775644
-#&gt; FGF9   19.037610 22.331243  6.646834 30.883813 11.239773
-#&gt; RSPO1   2.391683 35.934619 39.036947  5.411625 15.061765
-#&gt; DHH     4.373751 33.259122 17.989367 35.516356  2.563966
-#&gt; CTNNB1 34.080990 54.715054 48.697348  4.800439 18.890363
-#&gt; PGD2    2.816691 21.333371 27.989674 33.631187  6.081368</div></pre>
+<span class='co'># rescaling matrix</span>
+<span class='va'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>It seems like your input matrix contains values of correlation coefficients range(-1,1). Please be aware that for negative values the absolute value will be taken before rescaling. We transformed all negative values to their absolute values.</span></div><div class='input'><span class='co'># make weighted adjacency matrix binary</span>
+<span class='va'>ppcor_binary_adj_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_make_binary.html'>network_make_binary</a></span><span class='op'>(</span><span class='va'>ppcor_rescaled</span>, threshold <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies 70 as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='input'><span class='co'># calculate network statistics</span>
+<span class='va'>ppcor_statistics</span> <span class='op'>&lt;-</span> <span class='fu'>network_statistics_degree_distribution_naive</span><span class='op'>(</span><span class='va'>ppcor_binary_adj_mat</span><span class='op'>)</span>
+<span class='co'># look at results</span>
+<span class='va'>ppcor_statistics</span>
+</div><div class='output co'>#&gt; <span style='color: #555555;'># A tibble: 19 x 2</span><span>
+#&gt;    gene_name node_degree
+#&gt;    </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>           </span><span style='color: #555555;font-style: italic;'>&lt;int&gt;</span><span>
+#&gt; </span><span style='color: #555555;'> 1</span><span> FGF9                0
+#&gt; </span><span style='color: #555555;'> 2</span><span> DHH                 0
+#&gt; </span><span style='color: #555555;'> 3</span><span> PGD2                0
+#&gt; </span><span style='color: #555555;'> 4</span><span> WT1mKTS             0
+#&gt; </span><span style='color: #555555;'> 5</span><span> CBX2                0
+#&gt; </span><span style='color: #555555;'> 6</span><span> AMH                 0
+#&gt; </span><span style='color: #555555;'> 7</span><span> UGR                 0
+#&gt; </span><span style='color: #555555;'> 8</span><span> SOX9                0
+#&gt; </span><span style='color: #555555;'> 9</span><span> GATA4               0
+#&gt; </span><span style='color: #555555;'>10</span><span> NR0B1               1
+#&gt; </span><span style='color: #555555;'>11</span><span> FOXL2               1
+#&gt; </span><span style='color: #555555;'>12</span><span> DMRT1               2
+#&gt; </span><span style='color: #555555;'>13</span><span> CTNNB1              2
+#&gt; </span><span style='color: #555555;'>14</span><span> DKK1                2
+#&gt; </span><span style='color: #555555;'>15</span><span> NR5A1               2
+#&gt; </span><span style='color: #555555;'>16</span><span> RSPO1               3
+#&gt; </span><span style='color: #555555;'>17</span><span> SRY                 3
+#&gt; </span><span style='color: #555555;'>18</span><span> WNT4                3
+#&gt; </span><span style='color: #555555;'>19</span><span> WT1pKTS             3</div></span></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

@@ -242,12 +242,30 @@ Usually, it is safe to leave this untouched.</p></td>
 <span class='va'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
 <span class='co'># import PPCOR output into adjacency matrix</span>
 <span class='va'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ppcor.html'>ppcor</a></span><span class='op'>(</span><span class='va'>ppcor_output</span><span class='op'>)</span>
-<span class='co'># calculate network statistics</span>
-<span class='va'>ppcor_statistics</span> <span class='op'>&lt;-</span> <span class='fu'>network_statistics_powerlaws</span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in graph.adjacency.dense(adjmatrix, mode = mode, weighted = weighted,     diag = diag): not a square matrix</span></div><div class='input'><span class='co'># look at results</span>
-<span class='va'>ppcor_statistics</span>
-</div><div class='output co'>#&gt; <span class='error'>Error in eval(expr, envir, enclos): object 'ppcor_statistics' not found</span></div><div class='input'>
-</div></pre>
+<span class='co'># rescaling matrix</span>
+<span class='va'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>It seems like your input matrix contains values of correlation coefficients range(-1,1). Please be aware that for negative values the absolute value will be taken before rescaling. We transformed all negative values to their absolute values.</span></div><div class='input'><span class='co'># calculate network statistics</span>
+<span class='va'>ppcor_statistics</span> <span class='op'>&lt;-</span> <span class='fu'>network_statistics_powerlaws</span><span class='op'>(</span><span class='va'>ppcor_rescaled</span><span class='op'>)</span>
+<span class='co'># look at results</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>ppcor_statistics</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; $continuous
+#&gt; [1] FALSE
+#&gt; 
+#&gt; $alpha
+#&gt; [1] Inf
+#&gt; 
+#&gt; $xmin
+#&gt; [1] 1
+#&gt; 
+#&gt; $logLik
+#&gt; [1] NaN
+#&gt; 
+#&gt; $KS.stat
+#&gt; [1] 1.797693e+308
+#&gt; 
+#&gt; $KS.p
+#&gt; [1] 1
+#&gt; </div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
