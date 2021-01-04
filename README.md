@@ -12,12 +12,6 @@ The `edgynode` package imports inferred gene regulatory networks and performs ne
 ## Install `edgynode`
 
 ```r
-if (!requireNamespace("BiocManager", quietly = TRUE))
-    install.packages("BiocManager")
-BiocManager::install()
-# Install package dependencies
-BiocManager::install("monocle")
-
 # install edgynode from GitHub
 devtools::install_github("drostlab/edgynode")
 ```
