@@ -25,7 +25,8 @@ plot_network_weight_distribution <-
     adj_mat_long <-
       tidyr::pivot_longer(tibble::as_tibble(adj_mat), cols = 1:ncol(adj_mat))
     
-    p <-
+    value <- name <- NULL
+    p <- 
       ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + ggplot2::geom_point() +
       ggplot2::xlab(xlab) + ggplot2::ylab(ylab) +
       ggplot2::geom_vline(

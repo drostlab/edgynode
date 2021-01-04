@@ -1,9 +1,9 @@
 #' @title Plot the naive degree distribution of a degree table
 #' @description This function takes a degree table generated with 
-#' \code{\link{network_make_binary}} and \code{\link{network_degree_distribution_naive}} as input
+#' \code{\link{network_make_binary}} and \code{network_degree_distribution_naive} as input
 #' and visualizes the corresponding naive degree distribution.
 #' @param degree_tbl a degree table generated with 
-#' \code{\link{network_make_binary}} and \code{\link{network_degree_distribution_naive}}.
+#' \code{\link{network_make_binary}} and \code{network_degree_distribution_naive}.
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
 #' @author Sergio Vasquez and Hajk-Georg Drost
@@ -30,6 +30,7 @@ plot_network_degree_distribution_naive <- function (degree_tbl, xlab = "Gene Nam
   # sort the names by increasing node degree
   node_degree_vctr_names_sorted <- names(sort(node_degree_vctr))
   
+  gene_name <- node_degree <- NULL
   p <- ggplot2::ggplot(degree_tbl, ggplot2::aes(x = factor(gene_name, levels = node_degree_vctr_names_sorted), y = node_degree, group = 1)) + 
     ggplot2::geom_point(size = 3) + 
     ggplot2::geom_line(size = 2, alpha = 0.4) +

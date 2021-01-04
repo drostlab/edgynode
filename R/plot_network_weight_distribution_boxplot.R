@@ -25,6 +25,7 @@ plot_network_weight_distribution_boxplot <-
     adj_mat_long <-
       tidyr::pivot_longer(tibble::as_tibble(adj_mat), cols = 1:ncol(adj_mat))
     
+    value <- name <- NULL
     p <-
       ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + 
       ggplot2::geom_point(ggplot2::aes(y = name, color = value), size = .5, alpha = 0.8) +

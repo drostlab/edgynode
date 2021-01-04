@@ -12,7 +12,7 @@ plot_network_degree_distribution_naive(
 }
 \arguments{
 \item{degree_tbl}{a degree table generated with 
-\code{\link{network_make_binary}} and \code{\link{network_degree_distribution_naive}}.}
+\code{\link{network_make_binary}} and \code{network_degree_distribution_naive}.}
 
 \item{xlab}{x-axis label.}
 
@@ -20,7 +20,7 @@ plot_network_degree_distribution_naive(
 }
 \description{
 This function takes a degree table generated with 
-\code{\link{network_make_binary}} and \code{\link{network_degree_distribution_naive}} as input
+\code{\link{network_make_binary}} and \code{network_degree_distribution_naive} as input
 and visualizes the corresponding naive degree distribution.
 }
 \examples{

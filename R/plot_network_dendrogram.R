@@ -20,6 +20,6 @@
 plot_network_dendrogram <- function(adj_mat, dist_method = "euclidean") {
 
   # Plotting a dendrogram
-  plot(hclust(stats::dist(t(adj_mat[2:nrow(adj_mat), 2:ncol(adj_mat)]))))
+  plot(stats::hclust(stats::dist(t(adj_mat[2:nrow(adj_mat), 2:ncol(adj_mat)]))))
 
 }
