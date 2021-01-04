@@ -22,13 +22,6 @@ BiocManager::install("monocle")
 devtools::install_github("drostlab/edgynode")
 ```
 
-## Use Cases
-
-Learn `edgynode` by reading these tutorials: 
-
-- [Introduction to the `edgynode` package](https://drostlab.github.io/edgynode/articles/Introduction.html)
-
-
 ## Example
 
 ### Small example with internal dataset
