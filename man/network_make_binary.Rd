@@ -10,7 +10,14 @@ network_make_binary(adj_mat, threshold, print_message = TRUE)
 \item{adj_mat}{adjacency matrix to be converted.}
 
 \item{threshold}{we recommended to use \code{\link{network_rescale}}
-before using this function. Re-scaling will transform all values into a range [0,100].}
+before using this function. Re-scaling will transform all values into a range [0,100].
+The threshold can either be a numeric balue in the interval [0,100] or a character string
+specifying the following methods for automatically determining the threshold based on the input data:
+\itemize{
+\item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
+\code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
+value as \code{0} and all values above the \code{median} value as \code{1}.  
+}}
 
 \item{print_message}{a logical value indicating whether or not a threshold message shall be printed.}
 }
