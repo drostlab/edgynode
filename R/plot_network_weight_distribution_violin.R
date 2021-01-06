@@ -4,7 +4,16 @@
 #' @param adj_mat a weighted adjacency matrix.
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
-#' @param threshold a integer value between [0, 100] indicating where to draw the red vertical line.
+#' @param threshold we recommended to use \code{\link{network_rescale}}
+#' before using this function. Re-scaling will transform all values into a range [0,100].
+#' The threshold can either be a numeric balue in the interval [0,100] or a character string
+#' specifying the following methods for automatically determining the threshold based on the input data:
+#' \itemize{
+#' \item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
+#' \code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
+#' value as \code{0} and all values above the \code{median} value as \code{1}.  
+#' }
+#' The threshold value will then be drawn as vertical line in the plot.
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to PPCOR output file
@@ -22,21 +31,42 @@ plot_network_weight_distribution_violin <-
             xlab = "Edge weight",
             ylab = "Gene name",
             threshold) {
+    
     adj_mat_long <-
       tidyr::pivot_longer(tibble::as_tibble(adj_mat), cols = 1:ncol(adj_mat))
     
     value <- name <- NULL
-    p <-
-      ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + 
-      ggplot2::geom_point(ggplot2::aes(y = name, color = value), size = .5, alpha = 0.8) +
-      ggplot2::geom_violin(alpha = 0.5) +
-      ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::geom_vline(
-        xintercept = threshold,
-        color = "red",
-        size = 1.5,
-        alpha = 0.3
-      ) +
-      ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+    
+    if (is.numeric(threshold)) {
+      p <-
+        ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + 
+        ggplot2::geom_point(ggplot2::aes(y = name, color = value), size = .5, alpha = 0.8) +
+        ggplot2::geom_violin(alpha = 0.5) +
+        ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::geom_vline(
+          xintercept = threshold,
+          color = "red",
+          size = 1.5,
+          alpha = 0.3
+        ) +
+        ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+    }
+    
+    
+    if (is.character(threshold)) {
+      if (threshold == "median"){ 
+        p <-
+          ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + 
+          ggplot2::geom_point(ggplot2::aes(y = name, color = value), size = .5, alpha = 0.8) +
+          ggplot2::geom_violin(alpha = 0.5) +
+          ggplot2::xlab(xlab) + ggplot2::ylab(ylab) + ggplot2::geom_vline(
+            xintercept = round(median(adj_mat) , 2),
+            color = "red",
+            size = 1.5,
+            alpha = 0.3
+          ) +
+          ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+      }
+    }
     
     return(p)
   }

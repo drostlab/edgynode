@@ -138,7 +138,14 @@ the weight distribution for all edges of a gene.</p>
     </tr>
     <tr>
       <th>threshold</th>
-      <td><p>a integer value between [0, 100] indicating where to draw the red vertical line.</p></td>
+      <td><p>we recommended to use <code><a href='network_rescale.html'>network_rescale</a></code>
+before using this function. Re-scaling will transform all values into a range [0,100].
+The threshold can either be a numeric balue in the interval [0,100] or a character string
+specifying the following methods for automatically determining the threshold based on the input data:</p><ul>
+<li><p><code>threshold = "median"</code>: compute the <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code> over the entire input <code>adj_mat</code> and use this 
+<code>median</code> value as threshold for defining all edge weights of a genes equal or below the <code>median</code>
+value as <code>0</code> and all values above the <code>median</code> value as <code>1</code>.</p></li>
+</ul><p>The threshold value will then be drawn as vertical line in the plot.</p></td>
     </tr>
     </table>
 
