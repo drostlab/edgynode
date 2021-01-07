@@ -31,9 +31,10 @@ network_rescale <-
     
     diag(adj_mat) <- 0
     
-    if (!isSymmetric(adj_mat))
+    if (!isSymmetric(adj_mat)) {
       warning("The matrix provided as input for network_rescale() was coerced into symmetric.")
-    adj_mat <- make_symmetric(as.matrix(adj_mat))
+      adj_mat <- make_symmetric(as.matrix(adj_mat))
+    }
     
     if (dplyr::between(min(adj_mat), -1L, -0.1) &&
         dplyr::between(max(adj_mat), 0.1, 1L)) {
