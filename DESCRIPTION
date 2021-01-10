@@ -6,10 +6,10 @@ Authors@R: c(person("Sergio", "Vasquez", , "sergio.vasquez@tuebingen.mpg.de", c(
             person("Hajk-Georg", "Drost", , "hajk-georg.drost@tuebingen.mpg.de", c("cre", "aut", "ctb"))
             )
 Maintainer: Hajk-Georg Drost <hajk-georg.drost@tuebingen.mpg.de>
-Description: Statistical assessment and visualization of gene regulatory networks.
+Description: Imports correlation matrices of gene regulatory networks inferred with different gene regulatory network inference tools such as GENIE3, GRNBoost2, LEAP, PIDC and provides data transformation and network analytics functions to statistically assess, compare and visualize imported networks.
 License: GPL-3
 Depends: R (>= 3.1.1)
-Imports: fs, readr, igraph, philentropy, dplyr, tidyr, ggplot2, scales, stringr, tibble
+Imports: fs, readr, igraph, e1071, philentropy, dplyr, tidyr, ggplot2, scales, stringr, tibble, ggsci
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.1
