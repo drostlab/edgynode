@@ -96,6 +96,7 @@ network_benchmark_noise_filtering <-
            threshold = "median",
            dist_type = "hamming",
            print_message = TRUE) {
+    
     ### Rescaling networks and transforming continuous  edge weights into
     ### binary edge weights
     
@@ -129,7 +130,11 @@ network_benchmark_noise_filtering <-
       )
     
     
-    ### Computing for each gene pairwise hamming/jaccard distances
+    kept_genes <- 
+      intersect(
+        rownames(adj_mat_raw_no_noise_removed_and_no_qnorm_binary),
+        rownames(adj_mat_noise_removed_and_qnorm_binary)
+      )
     
     
     if (print_message) {
@@ -139,118 +144,89 @@ network_benchmark_noise_filtering <-
       )
     }
     
-    res_comparison_1 <-
-      semi_join_binary_matrices(
-        adj_mat_raw_no_noise_removed_and_no_qnorm_binary,
-        adj_mat_raw_noise_removed_but_no_qnorm_binary
-      )
-    
     # Comparison 1:
     no_noise_no_qnorm_VS_noise_removed_no_qnorm <-
       network_dist_pairwise_genes(
-        res_comparison_1$x_mat,
-        res_comparison_1$y_mat,
+        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_raw_noise_removed_but_no_qnorm_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
     
     
+    if (print_message) {
+      message("\n")
+      message(
+        "Comparison 2: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_no_noise_removed_but_qnorm'"
+      )
+    }
     
-    # if (print_message) {
-    #   message("\n")
-    #   message(
-    #     "Comparison 2: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_no_noise_removed_but_qnorm'"
-    #   )
-    # }
-    # 
-    # res_comparison_2 <-
-    #   semi_join_binary_matrices(
-    #     res_comparison_1$x_mat,
-    #     adj_mat_no_noise_removed_but_qnorm_binary
-    #   )
-    # 
-    # print(c(nrow(res_comparison_1$x_mat), ncol(res_comparison_1$x_mat)))
-    # print(c(nrow(res_comparison_2$y_mat), ncol(res_comparison_2$y_mat)))
-    # 
-    # # Comparison 2:
-    # no_noise_no_qnorm_VS_no_noise_with_qnorm <-
-    #   network_dist_pairwise_genes(
-    #     res_comparison_1$x_mat,
-    #     res_comparison_2$y_mat,
-    #     dist_type = dist_type,
-    #     print_message = print_message
-    #   )
-
-
+    # Comparison 2:
+    no_noise_no_qnorm_VS_no_noise_with_qnorm <-
+      network_dist_pairwise_genes(
+        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_no_noise_removed_but_qnorm_binary[kept_genes, kept_genes],
+        dist_type = dist_type,
+        print_message = print_message
+      )
+    
     if (print_message) {
       message("\n")
       message(
         "Comparison 3: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_noise_removed_and_qnorm'"
       )
     }
-
-    res_comparison_3 <-
-      semi_join_binary_matrices(
-        adj_mat_raw_no_noise_removed_and_no_qnorm_binary,
-        adj_mat_noise_removed_and_qnorm_binary
-      )
     
     # Comparison 3:
     no_noise_no_qnorm_VS_noise_removed_with_qnorm <-
       network_dist_pairwise_genes(
-        res_comparison_3$x_mat,
-        res_comparison_3$y_mat,
+        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_noise_removed_and_qnorm_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
     
-    if (print_message) {
-       message("\n")
-       message(
-         "Comparison 4: 'adj_mat_no_noise_removed_but_qnorm' vs 'adj_mat_noise_removed_and_qnorm'"
-       )
-     }
     
-     res_comparison_4 <-
-       semi_join_binary_matrices(
-         adj_mat_no_noise_removed_but_qnorm_binary,
-         adj_mat_noise_removed_and_qnorm_binary
-       )
-
-     # Comparison 4:
-     no_noise_with_qnorm_VS_noise_removed_with_qnorm <-
-       network_dist_pairwise_genes(
-         res_comparison_4$x_mat,
-         res_comparison_4$y_mat,
-         dist_type = dist_type,
-         print_message = print_message
-       )
+    if (print_message) {
+      message("\n")
+      message(
+        "Comparison 4: 'adj_mat_no_noise_removed_but_qnorm' vs 'adj_mat_noise_removed_and_qnorm'"
+      )
+    }
+    
+    # Comparison 4:
+    no_noise_with_qnorm_VS_noise_removed_with_qnorm <-
+      network_dist_pairwise_genes(
+        adj_mat_no_noise_removed_but_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_noise_removed_and_qnorm_binary[kept_genes, kept_genes],
+        dist_type = dist_type,
+        print_message = print_message
+      )
     
     if (length(unique(c(
       length(no_noise_no_qnorm_VS_noise_removed_no_qnorm),
-      # length(no_noise_no_qnorm_VS_no_noise_with_qnorm),
+      length(no_noise_no_qnorm_VS_no_noise_with_qnorm),
       length(no_noise_no_qnorm_VS_noise_removed_with_qnorm),
       length(no_noise_with_qnorm_VS_noise_removed_with_qnorm)
     ))) > 1)
       stop("After pairwise inner joining some joined matrices seem to have different dimensionalities and thus different distance vector lengths that cannot be returned. Please check what might have gone wrong.")
-      
-     
-     if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_no_qnorm), names(no_noise_no_qnorm_VS_noise_removed_with_qnorm))) > 0)
-       stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
-     if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_no_qnorm), names(no_noise_with_qnorm_VS_noise_removed_with_qnorm))) > 0)
-       stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
-     if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_with_qnorm), names(no_noise_with_qnorm_VS_noise_removed_with_qnorm))) > 0)
-       stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
-     
-    # combining results
+    
+    
+    if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_no_qnorm), names(no_noise_no_qnorm_VS_noise_removed_with_qnorm))) > 0)
+      stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
+    if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_no_qnorm), names(no_noise_with_qnorm_VS_noise_removed_with_qnorm))) > 0)
+      stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
+    if (length(setdiff(names(no_noise_no_qnorm_VS_noise_removed_with_qnorm), names(no_noise_with_qnorm_VS_noise_removed_with_qnorm))) > 0)
+      stop("Different gene names seem to have been removed from individual gene matrices, making the gene sets not comparable.")
+    
     res <- tibble::tibble(
       grn_tool = rep(grn_tool, length(no_noise_no_qnorm_VS_noise_removed_no_qnorm)),
       genes = names(no_noise_no_qnorm_VS_noise_removed_no_qnorm),
       no_noise_no_qnorm_VS_noise_removed_no_qnorm,
-      #no_noise_no_qnorm_VS_no_noise_with_qnorm,
+      no_noise_no_qnorm_VS_no_noise_with_qnorm,
       no_noise_no_qnorm_VS_noise_removed_with_qnorm,
       no_noise_with_qnorm_VS_noise_removed_with_qnorm
     )
     
-    return (res)
-  }
+    return (res) 
+}
