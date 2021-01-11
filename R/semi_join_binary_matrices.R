@@ -35,11 +35,11 @@ semi_join_binary_matrices <- function(x,y) {
     # after inner join transform back to matrix for downstream processing
     # for (x,y)
     x_tibble_joined <-
-      stats::na.omit(dplyr::semi_join(
+      dplyr::semi_join(
         x_tibble,
         y_tibble,
         by = "genes"
-      ))
+      )
     
     # remove excluded genes from columns since it is a symmetric matrix
     x_tibble_joined <- dplyr::select(x_tibble_joined, -excluded_genes_comparison)
@@ -55,11 +55,11 @@ semi_join_binary_matrices <- function(x,y) {
     
     # for (y,x)
     y_tibble_joined <-
-      stats::na.omit(dplyr::semi_join(
+      dplyr::semi_join(
         y_tibble,
         x_tibble,
         by = "genes"
-      ))
+      )
     
     # remove excluded genes from columns since it is a symmetric matrix
     #y_tibble_joined <- dplyr::select(y_tibble_joined, -excluded_genes_comparison)
