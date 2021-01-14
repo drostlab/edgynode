@@ -7,19 +7,22 @@
 plot_network_degree_distribution_naive(
   degree_tbl,
   xlab = "Gene Name",
-  ylab = "Node Degree per Gene"
+  ylab = "Node Degree per Gene",
+  y_ticks = 12
 )
 }
 \arguments{
-\item{degree_tbl}{a degree table generated with 
+\item{degree_tbl}{a degree table generated with
 \code{\link{network_make_binary}} and \code{network_degree_distribution_naive}.}
 
 \item{xlab}{x-axis label.}
 
 \item{ylab}{y-axis label.}
+
+\item{y_ticks}{number of ticks on y-axis.}
 }
 \description{
-This function takes a degree table generated with 
+This function takes a degree table generated with
 \code{\link{network_make_binary}} and \code{network_degree_distribution_naive} as input
 and visualizes the corresponding naive degree distribution.
 }

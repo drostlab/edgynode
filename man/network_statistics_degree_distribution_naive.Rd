@@ -4,10 +4,23 @@
 \alias{network_statistics_degree_distribution_naive}
 \title{Calculate the naive degree distribution from binary adjacency matrices}
 \usage{
-network_statistics_degree_distribution_naive(adj_mat)
+network_statistics_degree_distribution_naive(
+  adj_mat,
+  store_top_frac = FALSE,
+  top_frac = 0.1,
+  store_path = file.path(tempdir(),
+    "example_network_statistics_degree_distribution_naive.tsv")
+)
 }
 \arguments{
 \item{adj_mat}{a symmetrical binary adjacency matrix.}
+
+\item{store_top_frac}{shall a fraction of the top \code{N} genes with highest naive node degree be
+stored in a output file? Default is  \code{store_top_frac = FALSE}.}
+
+\item{top_frac}{a fraction (between [0,1]) of top genes that shall be stored in the output file (if \code{store_top_frac = TRUE}).}
+
+\item{store_path}{a file  path where the output file shall be stored. Default is \code{store_path = file.path(tempdir(), "example_network_statistics_degree_distribution_naive.tsv")}.}
 }
 \description{
 This function calculates
@@ -26,7 +39,11 @@ ppcor_binary_adj_mat <- network_make_binary(ppcor_rescaled, threshold = 70)
 ppcor_statistics <- network_statistics_degree_distribution_naive(ppcor_binary_adj_mat)
 # look at results
 ppcor_statistics
+
+# store top genes with highest node degree at tempdir()
+ network_statistics_degree_distribution_naive(ppcor_binary_adj_mat, 
+   store_top_frac = TRUE, top_frac = 0.1)
 }
 \author{
-Sergio Vasquez and Hajk-Georg Drost
+Hajk-Georg Drost
 }

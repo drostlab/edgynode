@@ -5,10 +5,10 @@
 \title{Benchmarking of noise filtering and normalization impact on network inference}
 \usage{
 network_benchmark_noise_filtering(
-  adj_mat_raw_no_noise_removed_and_no_qnorm,
-  adj_mat_raw_noise_removed_but_no_qnorm,
-  adj_mat_no_noise_removed_but_qnorm,
-  adj_mat_noise_removed_and_qnorm,
+  adj_mat_not_filtered_not_normalized,
+  adj_mat_filtered_and_not_normalized,
+  adj_mat_not_filtered_but_normalized,
+  adj_mat_filtered_and_normalized,
   grn_tool,
   threshold = "median",
   dist_type = "hamming",
@@ -16,16 +16,16 @@ network_benchmark_noise_filtering(
 )
 }
 \arguments{
-\item{adj_mat_raw_no_noise_removed_and_no_qnorm}{a weighted adjacency matrix derived from a network inference program
+\item{adj_mat_not_filtered_not_normalized}{a weighted adjacency matrix derived from a network inference program
 where no noise-filtering or quantile-normalization was applied to the input data.}
 
-\item{adj_mat_raw_noise_removed_but_no_qnorm}{a weighted adjacency matrix derived from a network inference program
+\item{adj_mat_filtered_and_not_normalized}{a weighted adjacency matrix derived from a network inference program
 where noise-filtering but no quantile-normalization was applied to the input data.}
 
-\item{adj_mat_no_noise_removed_but_qnorm}{a weighted adjacency matrix derived from a network inference program
+\item{adj_mat_not_filtered_but_normalized}{a weighted adjacency matrix derived from a network inference program
 where no noise-filtering but quantile-normalization was applied to the input data.}
 
-\item{adj_mat_noise_removed_and_qnorm}{a weighted adjacency matrix derived from a network inference program
+\item{adj_mat_filtered_and_normalized}{a weighted adjacency matrix derived from a network inference program
 where noise-filtering and quantile-normalization were applied to the input data.}
 
 \item{grn_tool}{a character string specifying the gene regulatory network inference tool that was used to
@@ -59,10 +59,10 @@ noise-filtering and quantile-normalization.
 It is assumed that the four matrices inserted into this function come from
 network inference runs with the following input data specifications:
 \itemize{
-\item Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (\code{adj_mat_raw_no_noise_removed_and_no_qnorm})
-\item Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (\code{adj_mat_raw_noise_removed_but_no_qnorm})
-\item Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (\code{adj_mat_no_noise_removed_but_qnorm})
-\item Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (\code{adj_mat_noise_removed_and_qnorm})
+\item Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (\code{adj_mat_not_filtered_not_normalized})
+\item Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (\code{adj_mat_filtered_and_not_normalized})
+\item Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (\code{adj_mat_not_filtered_but_normalized})
+\item Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (\code{adj_mat_filtered_and_normalized})
 }
 
 All relevant pairwise comparisons are then performed internally with \code{\link{network_dist_pairwise_genes}} based on gene-wise

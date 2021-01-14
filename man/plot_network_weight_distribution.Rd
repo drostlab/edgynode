@@ -8,7 +8,8 @@ plot_network_weight_distribution(
   adj_mat,
   xlab = "Edge weight",
   ylab = "Gene name",
-  threshold
+  threshold,
+  x_ticks = 10
 )
 }
 \arguments{
@@ -28,6 +29,8 @@ specifying the following methods for automatically determining the threshold bas
 value as \code{0} and all values above the \code{median} value as \code{1}.  
 }
 The threshold value will then be drawn as vertical line in the plot.}
+
+\item{x_ticks}{number of y-axis ticks.}
 }
 \description{
 This function takes a weighted adjacency matrix and plots
