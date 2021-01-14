@@ -42,8 +42,8 @@ plot_network_degree_distribution_naive <-
         y = node_degree,
         group = 1
       )) +
-      ggplot2::geom_point(size = 6) +
-      ggplot2::geom_line(size = 6, alpha = 0.4) +
+      ggplot2::geom_point(size = 2) +
+      ggplot2::geom_line(size = 1.5, alpha = 0.4) +
       ggplot2::theme_minimal() +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::theme(
