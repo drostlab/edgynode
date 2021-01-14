@@ -6,22 +6,22 @@
 #' It is assumed that the four matrices inserted into this function come from
 #' network inference runs with the following input data specifications:
 #' \itemize{
-#' \item Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (\code{adj_mat_raw_no_noise_removed_and_no_qnorm})
-#' \item Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (\code{adj_mat_raw_noise_removed_but_no_qnorm})
-#' \item Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (\code{adj_mat_no_noise_removed_but_qnorm})
-#' \item Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (\code{adj_mat_noise_removed_and_qnorm})
+#' \item Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (\code{adj_mat_not_filtered_not_normalized})
+#' \item Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (\code{adj_mat_filtered_and_not_normalized})
+#' \item Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (\code{adj_mat_not_filtered_but_normalized})
+#' \item Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (\code{adj_mat_filtered_and_normalized})
 #' }
 #'
 #' All relevant pairwise comparisons are then performed internally with \code{\link{network_dist_pairwise_genes}} based on gene-wise
 #' Hamming Distance or Jaccard Similarity Coefficient computations.
 #'
-#' @param adj_mat_raw_no_noise_removed_and_no_qnorm a weighted adjacency matrix derived from a network inference program
+#' @param adj_mat_not_filtered_not_normalized a weighted adjacency matrix derived from a network inference program
 #' where no noise-filtering or quantile-normalization was applied to the input data.
-#' @param adj_mat_raw_noise_removed_but_no_qnorm a weighted adjacency matrix derived from a network inference program
+#' @param adj_mat_filtered_and_not_normalized a weighted adjacency matrix derived from a network inference program
 #' where noise-filtering but no quantile-normalization was applied to the input data.
-#' @param adj_mat_no_noise_removed_but_qnorm a weighted adjacency matrix derived from a network inference program
+#' @param adj_mat_not_filtered_but_normalized a weighted adjacency matrix derived from a network inference program
 #' where no noise-filtering but quantile-normalization was applied to the input data.
-#' @param adj_mat_noise_removed_and_qnorm a weighted adjacency matrix derived from a network inference program
+#' @param adj_mat_filtered_and_normalized a weighted adjacency matrix derived from a network inference program
 #' where noise-filtering and quantile-normalization were applied to the input data.
 #' @param grn_tool a character string specifying the gene regulatory network inference tool that was used to
 #' generate input matrices.
@@ -88,10 +88,10 @@
 #' @export
 
 network_benchmark_noise_filtering <-
-  function(adj_mat_raw_no_noise_removed_and_no_qnorm,
-           adj_mat_raw_noise_removed_but_no_qnorm,
-           adj_mat_no_noise_removed_but_qnorm,
-           adj_mat_noise_removed_and_qnorm,
+  function(adj_mat_not_filtered_not_normalized,
+           adj_mat_filtered_and_not_normalized,
+           adj_mat_not_filtered_but_normalized,
+           adj_mat_filtered_and_normalized,
            grn_tool,
            threshold = "median",
            dist_type = "hamming",
@@ -101,30 +101,30 @@ network_benchmark_noise_filtering <-
     ### binary edge weights
     
     # Raw matrix with no noise-filter applied and no normalization applied
-    adj_mat_raw_no_noise_removed_and_no_qnorm_binary <-
+    adj_mat_not_filtered_not_normalized_binary <-
       network_make_binary(
-        network_rescale(adj_mat_raw_no_noise_removed_and_no_qnorm),
+        network_rescale(adj_mat_not_filtered_not_normalized),
         threshold = threshold,
         print_message = print_message
       )
     # Raw matrix with noise-filter applied but no normalization applied
-    adj_mat_raw_noise_removed_but_no_qnorm_binary <-
+    adj_mat_filtered_and_not_normalized_binary <-
       network_make_binary(
-        network_rescale(adj_mat_raw_noise_removed_but_no_qnorm),
+        network_rescale(adj_mat_filtered_and_not_normalized),
         threshold = threshold,
         print_message = print_message
       )
     # Raw matrix with no noise-filter applied but normalization applied
-    adj_mat_no_noise_removed_but_qnorm_binary <-
+    adj_mat_not_filtered_but_normalized_binary <-
       network_make_binary(
-        network_rescale(adj_mat_no_noise_removed_but_qnorm),
+        network_rescale(adj_mat_not_filtered_but_normalized),
         threshold = threshold,
         print_message = print_message
       )
     # Raw matrix with noise-filter applied and normalization applied
-    adj_mat_noise_removed_and_qnorm_binary <-
+    adj_mat_filtered_and_normalized_binary <-
       network_make_binary(
-        network_rescale(adj_mat_noise_removed_and_qnorm),
+        network_rescale(adj_mat_filtered_and_normalized),
         threshold = threshold,
         print_message = print_message
       )
@@ -132,23 +132,23 @@ network_benchmark_noise_filtering <-
     
     kept_genes <- 
       intersect(
-        rownames(adj_mat_raw_no_noise_removed_and_no_qnorm_binary),
-        rownames(adj_mat_noise_removed_and_qnorm_binary)
+        rownames(adj_mat_not_filtered_not_normalized_binary),
+        rownames(adj_mat_filtered_and_normalized_binary)
       )
     
     
     if (print_message) {
       message("\n")
       message(
-        "Comparison 1: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_raw_noise_removed_but_no_qnorm'"
+        "Comparison 1: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_filtered_and_not_normalized'"
       )
     }
     
     # Comparison 1:
     no_noise_no_qnorm_VS_noise_removed_no_qnorm <-
       network_dist_pairwise_genes(
-        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
-        adj_mat_raw_noise_removed_but_no_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_not_filtered_not_normalized_binary[kept_genes, kept_genes],
+        adj_mat_filtered_and_not_normalized_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
@@ -157,15 +157,15 @@ network_benchmark_noise_filtering <-
     if (print_message) {
       message("\n")
       message(
-        "Comparison 2: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_no_noise_removed_but_qnorm'"
+        "Comparison 2: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_not_filtered_but_normalized'"
       )
     }
     
     # Comparison 2:
     no_noise_no_qnorm_VS_no_noise_with_qnorm <-
       network_dist_pairwise_genes(
-        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
-        adj_mat_no_noise_removed_but_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_not_filtered_not_normalized_binary[kept_genes, kept_genes],
+        adj_mat_not_filtered_but_normalized_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
@@ -173,15 +173,15 @@ network_benchmark_noise_filtering <-
     if (print_message) {
       message("\n")
       message(
-        "Comparison 3: 'adj_mat_raw_no_noise_removed_and_no_qnorm' vs 'adj_mat_noise_removed_and_qnorm'"
+        "Comparison 3: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_filtered_and_normalized'"
       )
     }
     
     # Comparison 3:
     no_noise_no_qnorm_VS_noise_removed_with_qnorm <-
       network_dist_pairwise_genes(
-        adj_mat_raw_no_noise_removed_and_no_qnorm_binary[kept_genes, kept_genes],
-        adj_mat_noise_removed_and_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_not_filtered_not_normalized_binary[kept_genes, kept_genes],
+        adj_mat_filtered_and_normalized_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
@@ -190,15 +190,15 @@ network_benchmark_noise_filtering <-
     if (print_message) {
       message("\n")
       message(
-        "Comparison 4: 'adj_mat_no_noise_removed_but_qnorm' vs 'adj_mat_noise_removed_and_qnorm'"
+        "Comparison 4: 'adj_mat_not_filtered_but_normalized' vs 'adj_mat_filtered_and_normalized'"
       )
     }
     
     # Comparison 4:
     no_noise_with_qnorm_VS_noise_removed_with_qnorm <-
       network_dist_pairwise_genes(
-        adj_mat_no_noise_removed_but_qnorm_binary[kept_genes, kept_genes],
-        adj_mat_noise_removed_and_qnorm_binary[kept_genes, kept_genes],
+        adj_mat_not_filtered_but_normalized_binary[kept_genes, kept_genes],
+        adj_mat_filtered_and_normalized_binary[kept_genes, kept_genes],
         dist_type = dist_type,
         print_message = print_message
       )
@@ -222,10 +222,10 @@ network_benchmark_noise_filtering <-
     res <- tibble::tibble(
       grn_tool = rep(grn_tool, length(no_noise_no_qnorm_VS_noise_removed_no_qnorm)),
       genes = names(no_noise_no_qnorm_VS_noise_removed_no_qnorm),
-      no_noise_no_qnorm_VS_noise_removed_no_qnorm,
-      no_noise_no_qnorm_VS_no_noise_with_qnorm,
-      no_noise_no_qnorm_VS_noise_removed_with_qnorm,
-      no_noise_with_qnorm_VS_noise_removed_with_qnorm
+      `Original vs Filtered, Not Normalized` = no_noise_no_qnorm_VS_noise_removed_no_qnorm,
+      `Original vs Not Filtered, But Normalized` = no_noise_no_qnorm_VS_no_noise_with_qnorm,
+      `Original vs Filtered, Normalized` = no_noise_no_qnorm_VS_noise_removed_with_qnorm,
+      `Not Filtered, But Normalized vs Filtered, Normalized` = no_noise_with_qnorm_VS_noise_removed_with_qnorm
     )
     
     return (res) 
