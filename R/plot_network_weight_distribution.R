@@ -14,6 +14,7 @@
 #' value as \code{0} and all values above the \code{median} value as \code{1}.  
 #' }
 #' The threshold value will then be drawn as vertical line in the plot.
+#' @param x_ticks number of y-axis ticks.
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
 #' # path to PPCOR output file
@@ -30,7 +31,8 @@ plot_network_weight_distribution <-
   function (adj_mat,
             xlab = "Edge weight",
             ylab = "Gene name",
-            threshold) {
+            threshold,
+            x_ticks = 10) {
     
     adj_mat_long <-
       tidyr::pivot_longer(tibble::as_tibble(adj_mat), cols = 1:ncol(adj_mat))
@@ -59,7 +61,8 @@ plot_network_weight_distribution <-
             color = "red",
             size = 1.5,
             alpha = 0.3
-          ) + ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+          ) + ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7") +
+          ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = x_ticks))
       }
     }
     
