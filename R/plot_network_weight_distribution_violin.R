@@ -44,7 +44,7 @@ plot_network_weight_distribution_violin <-
       ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) +
       ggplot2::geom_point(
         ggplot2::aes(y = name, color = value),
-        size = .5,
+        size = .3,
         alpha = 0.4,
         position = ggplot2::position_jitter(width = 0, height = 0.28)
       ) +
@@ -53,7 +53,7 @@ plot_network_weight_distribution_violin <-
       ggplot2::geom_vline(
         xintercept = threshold,
         color = "red",
-        size = 1.5,
+        size = 0.6,
         alpha = 0.3
       ) +
       ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
