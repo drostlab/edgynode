@@ -42,8 +42,8 @@ plot_network_degree_distribution_naive <-
         y = node_degree,
         group = 1
       )) +
-      ggplot2::geom_point(size = 3) +
-      ggplot2::geom_line(size = 2, alpha = 0.4) +
+      ggplot2::geom_point(size = 6) +
+      ggplot2::geom_line(size = 6, alpha = 0.4) +
       ggplot2::theme_minimal() +
       ggplot2::labs(x = xlab, y = ylab) +
       ggplot2::theme(
@@ -52,7 +52,7 @@ plot_network_degree_distribution_naive <-
         legend.text      = ggplot2::element_text(size = 18, face = "bold"),
         axis.title       = ggplot2::element_text(size = 18, face = "bold"),
         axis.text.y      = ggplot2::element_text(size = 18, face = "bold"),
-        axis.text.x      = ggplot2::element_text(size = 18, face = "bold"),
+        axis.text.x      = ggplot2::element_text(size = 6, face = "bold"),
         panel.background = ggplot2::element_blank(),
         strip.text.x     = ggplot2::element_text(
           size           = 18,
