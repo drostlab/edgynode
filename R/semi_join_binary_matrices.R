@@ -1,6 +1,8 @@
 # Internal helper function to join binary adjacency matrices
 semi_join_binary_matrices <- function(x,y) {
   # For Comparison 1:  transform binary matrix to tibble to be able to perform inner join operations
+  
+  genes <- NULL
   x_tibble <-
     tibble::tibble(
       genes = rownames(x),

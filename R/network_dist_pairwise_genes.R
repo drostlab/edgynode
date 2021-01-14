@@ -4,7 +4,7 @@
 #' @param adj_mat_qry a binary adjacency matrix generated with \code{\link{network_rescale}} and \code{\link{network_make_binary}}.
 #' @param adj_mat_sbj a binary adjacency matrix with the same genes as in \code{adj_mat_qry}, but with differnt binary edge weights generated with \code{\link{network_rescale}} and \code{\link{network_make_binary}}.
 #' @param print_message shall massages be printed? Default is \code{print_message = TRUE}.
-#' @param dist_method a distance method that shall be applied on the binary values for each gene. Available options are:
+#' @param dist_type a distance method that shall be applied on the binary values for each gene. Available options are:
 #' \itemize{
 #' \item \code{dist_type = "hamming"}: computes the \code{\link[e1071]{hamming.distance}} for each gene between the two input matrices
 #' \item \code{dist_type = "jaccard"}: computes the \code{\link[jaccard]{jaccard}} for each gene between the two input matrices
@@ -35,7 +35,7 @@ network_dist_pairwise_genes <- function(adj_mat_qry, adj_mat_sbj, dist_type = "h
     stop("Please make sure that your query and subject matrices have the same dimensionality.", call. = FALSE)
   
   if (!is.element(dist_type, c("hamming", "jaccard")))
-    stop("Please select a dist_method that is supported by this function.", call. = FALSE)
+    stop("Please select a dist_type that is supported by this function.", call. = FALSE)
   
   if (print_message) {
     message("- adj_mat_qry: nrow = (", nrow(adj_mat_qry), ") and ncol(", ncol(adj_mat_qry), ")")

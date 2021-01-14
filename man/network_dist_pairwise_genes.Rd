@@ -16,13 +16,13 @@ network_dist_pairwise_genes(
 
 \item{adj_mat_sbj}{a binary adjacency matrix with the same genes as in \code{adj_mat_qry}, but with differnt binary edge weights generated with \code{\link{network_rescale}} and \code{\link{network_make_binary}}.}
 
-\item{print_message}{shall massages be printed? Default is \code{print_message = TRUE}.}
-
-\item{dist_method}{a distance method that shall be applied on the binary values for each gene. Available options are:
+\item{dist_type}{a distance method that shall be applied on the binary values for each gene. Available options are:
 \itemize{
 \item \code{dist_type = "hamming"}: computes the \code{\link[e1071]{hamming.distance}} for each gene between the two input matrices
 \item \code{dist_type = "jaccard"}: computes the \code{\link[jaccard]{jaccard}} for each gene between the two input matrices
 }}
+
+\item{print_message}{shall massages be printed? Default is \code{print_message = TRUE}.}
 }
 \description{
 Compute the pairwise \code{Hamming} or \code{Jaccard} distance between binary edge weights of the 

@@ -57,7 +57,7 @@ plot_network_weight_distribution <-
           ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + ggplot2::geom_point() +
           ggplot2::xlab(xlab) + ggplot2::ylab(ylab) +
           ggplot2::geom_vline(
-            xintercept = round(median(adj_mat), 2),
+            xintercept = round(stats::median(adj_mat), 2),
             color = "red",
             size = 1.5,
             alpha = 0.3

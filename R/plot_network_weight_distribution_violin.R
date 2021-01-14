@@ -37,7 +37,7 @@ plot_network_weight_distribution_violin <-
     value <- name <- NULL
     
     if (threshold == "median") {
-      threshold <- round(median(adj_mat) , 2)
+      threshold <- round(stats::median(adj_mat) , 2)
     }
   
     p <-

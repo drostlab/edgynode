@@ -63,6 +63,8 @@ plot_network_benchmark_noise_filtering <-
     tidy_benchmark_result <-
       transform_benchmark_into_tidy_format(network_benchmark_noise_filtering_result)
     
+    Comparison <- `Hamming Distance` <- `Jaccard Similarity Coefficient` <- NULL
+    
     if (dist_type == "hamming") {
       names(tidy_benchmark_result) <-
         c("GRN Tool", "Genes", "Comparison", "Hamming Distance")
