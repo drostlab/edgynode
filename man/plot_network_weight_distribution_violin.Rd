@@ -23,9 +23,9 @@ before using this function. Re-scaling will transform all values into a range [0
 The threshold can either be a numeric balue in the interval [0,100] or a character string
 specifying the following methods for automatically determining the threshold based on the input data:
 \itemize{
-\item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
+\item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this
 \code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
-value as \code{0} and all values above the \code{median} value as \code{1}.  
+value as \code{0} and all values above the \code{median} value as \code{1}.
 }
 The threshold value will then be drawn as vertical line in the plot.}
 }

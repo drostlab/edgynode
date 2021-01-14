@@ -7,7 +7,7 @@
 plot_network_benchmark_noise_filtering(
   network_benchmark_noise_filtering_result,
   dist_type,
-  xlab = "Comparison between original, filtered, and normalized networks",
+  xlab = "",
   title = "",
   y_ticks = 10
 )

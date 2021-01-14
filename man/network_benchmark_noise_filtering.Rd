@@ -9,7 +9,7 @@ network_benchmark_noise_filtering(
   adj_mat_filtered_and_not_normalized,
   adj_mat_not_filtered_but_normalized,
   adj_mat_filtered_and_normalized,
-  grn_tool,
+  grn_tool = NA,
   threshold = "median",
   dist_type = "hamming",
   print_message = TRUE
@@ -29,7 +29,7 @@ where no noise-filtering but quantile-normalization was applied to the input dat
 where noise-filtering and quantile-normalization were applied to the input data.}
 
 \item{grn_tool}{a character string specifying the gene regulatory network inference tool that was used to
-generate input matrices.}
+generate input matrices. Default is \code{grn_tool = NA}.}
 
 \item{threshold}{we recommended to use \code{\link{network_rescale}}
 before using this function. Re-scaling will transform all values into a range [0,100].
