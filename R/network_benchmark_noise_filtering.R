@@ -24,7 +24,7 @@
 #' @param adj_mat_filtered_and_normalized a weighted adjacency matrix derived from a network inference program
 #' where noise-filtering and quantile-normalization were applied to the input data.
 #' @param grn_tool a character string specifying the gene regulatory network inference tool that was used to
-#' generate input matrices.
+#' generate input matrices. Default is \code{grn_tool = NA}.
 #' @param threshold we recommended to use \code{\link{network_rescale}}
 #' before using this function. Re-scaling will transform all values into a range [0,100].
 #' The threshold can either be a numeric balue in the interval [0,100] or a character string
@@ -92,7 +92,7 @@ network_benchmark_noise_filtering <-
            adj_mat_filtered_and_not_normalized,
            adj_mat_not_filtered_but_normalized,
            adj_mat_filtered_and_normalized,
-           grn_tool,
+           grn_tool = NA,
            threshold = "median",
            dist_type = "hamming",
            print_message = TRUE) {
