@@ -50,7 +50,7 @@
 plot_network_benchmark_noise_filtering <-
   function(network_benchmark_noise_filtering_result,
            dist_type,
-           xlab = "Comparison between original, filtered, and normalized networks",
+           xlab = "",
            title = "",
            y_ticks = 10) {
     if (!is.element(dist_type, c("hamming", "jaccard")))
@@ -70,14 +70,14 @@ plot_network_benchmark_noise_filtering <-
         ggplot2::ggplot(
           tidy_benchmark_result,
           ggplot2::aes(
-            x = factor(
-              Comparison,
-              levels = c(
-                "Original vs Filtered, Not Normalized",
-                "Not Filtered, But Normalized vs Filtered, Normalized",
-                "Original vs Not Filtered, But Normalized",
-                "Original vs Filtered, Normalized"
-              )),
+            #x = factor(
+              x = Comparison,
+              # levels = c(
+              #   "Original vs Filtered, Not Normalized",
+              #   "Not Filtered, But Normalized vs Filtered, Normalized",
+              #   "Original vs Not Filtered, But Normalized",
+              #   "Original vs Filtered, Normalized"
+              # )),
             y = `Hamming Distance`,
             fill = Comparison
           )
@@ -85,14 +85,14 @@ plot_network_benchmark_noise_filtering <-
         ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 2.5, position = ggplot2::position_jitterdodge(),
                                                                  alpha = 0.4)  +
         ggplot2::theme_minimal() +
-        ggplot2::labs(x = xlab, y = "Hamming Distance", title = paste0(title, " | Kruskal-Wallis Rank Sum Test; p = ", round(kruskal_p_val, 6))) +
+        ggplot2::labs(x = xlab, y = "Hamming Distance", title = paste0(title, "Kruskal-Wallis Rank Sum Test; p = ", round(kruskal_p_val, 6))) +
         ggplot2::theme(
           title            = ggplot2::element_text(size = 16, face = "bold"),
           legend.title     = ggplot2::element_text(size = 16, face = "bold"),
           legend.text      = ggplot2::element_text(size = 8, face = "bold"),
           axis.title       = ggplot2::element_text(size = 16, face = "bold"),
           axis.text.y      = ggplot2::element_text(size = 16, face = "bold"),
-          axis.text.x      = ggplot2::element_text(size = 8, face = "bold"),
+          axis.text.x      = ggplot2::element_blank(),
           panel.background = ggplot2::element_blank(),
           strip.text.x     = ggplot2::element_text(
             size           = 18,
@@ -100,6 +100,7 @@ plot_network_benchmark_noise_filtering <-
             face           = "bold"
           )
         ) + ggsci::scale_fill_aaas() +
+        ggplot2::scale_x_discrete(breaks = NULL) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(
           angle = 90,
           vjust = 1,
@@ -144,6 +145,7 @@ plot_network_benchmark_noise_filtering <-
             face           = "bold"
           )
         ) + ggsci::scale_fill_aaas() +
+        ggplot2::scale_x_discrete(breaks = NULL) +
         ggplot2::theme(axis.text.x = ggplot2::element_text(
           angle = 90,
           vjust = 1,
