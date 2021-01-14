@@ -63,6 +63,8 @@ plot_network_benchmark_noise_filtering <-
     tidy_benchmark_result <-
       transform_benchmark_into_tidy_format(network_benchmark_noise_filtering_result)
     
+    message(paste0("Kruskal-Wallis Rank Sum Test; p = ", kruskal_p_val))
+    
     Comparison <- `Hamming Distance` <- `Jaccard Similarity Coefficient` <- NULL
     
     if (dist_type == "hamming") {
@@ -84,10 +86,10 @@ plot_network_benchmark_noise_filtering <-
             fill = Comparison
           )
         ) +
-        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 2.5, position = ggplot2::position_jitterdodge(),
+        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 1, position = ggplot2::position_jitterdodge(),
                                                                  alpha = 0.4)  +
         ggplot2::theme_minimal() +
-        ggplot2::labs(x = xlab, y = "Hamming Distance", title = paste0(title, "Kruskal-Wallis Rank Sum Test; p = ", round(kruskal_p_val, 6))) +
+        ggplot2::labs(x = xlab, y = "Hamming Distance", title = title) +
         ggplot2::theme(
           title            = ggplot2::element_text(size = 16, face = "bold"),
           legend.title     = ggplot2::element_text(size = 16, face = "bold"),
@@ -129,10 +131,10 @@ plot_network_benchmark_noise_filtering <-
               "Original vs Filtered, Normalized"
           )),
           y = `Jaccard Similarity Coefficient`, fill = Comparison)) +
-        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 2.5, position = ggplot2::position_jitterdodge(),
+        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 1, position = ggplot2::position_jitterdodge(),
                                                                  alpha = 0.4)  +
         ggplot2::theme_minimal() +
-        ggplot2::labs(x = xlab, y = "Jaccard Similarity Coefficient", title = paste0(title, " | Kruskal-Wallis Rank Sum Test; p = ", round(kruskal_p_val, 6))) +
+        ggplot2::labs(x = xlab, y = "Jaccard Similarity Coefficient", title = title) +
         ggplot2::theme(
           title            = ggplot2::element_text(size = 16, face = "bold"),
           legend.title     = ggplot2::element_text(size = 16, face = "bold"),
