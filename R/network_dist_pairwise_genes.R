@@ -31,7 +31,7 @@
 #' @export
 network_dist_pairwise_genes <- function(adj_mat_qry, adj_mat_sbj, dist_type = "hamming", print_message = TRUE) {
   
-  if (!all(dim(adj_mat_qry) == dim(adj_mat_sbj)))
+    if (!all(dim(adj_mat_qry) == dim(adj_mat_sbj)))
     stop("Please make sure that your query and subject matrices have the same dimensionality.", call. = FALSE)
   
   if (!is.element(dist_type, c("hamming", "jaccard")))
