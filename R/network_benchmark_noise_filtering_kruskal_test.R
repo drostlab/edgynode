@@ -43,10 +43,12 @@ network_benchmark_noise_filtering_kruskal_test <- function(network_benchmark_noi
   
   res <- stats::kruskal.test(
     list(
-      network_benchmark_noise_filtering_result$`Original vs Filtered, Not Normalized`,
-      network_benchmark_noise_filtering_result$`Original vs Not Filtered, But Normalized`,
-      network_benchmark_noise_filtering_result$`Original vs Filtered, Normalized`,
-      network_benchmark_noise_filtering_result$`Not Filtered, But Normalized vs Filtered, Normalized`
+      network_benchmark_noise_filtering_result$`-F -N / +F -N`,
+      network_benchmark_noise_filtering_result$`-F -N / -F +N`,
+      network_benchmark_noise_filtering_result$`-F -N / +F +N`,
+      network_benchmark_noise_filtering_result$`-F +N / +F +N`,
+      network_benchmark_noise_filtering_result$`-F +N / +F -N`,
+      network_benchmark_noise_filtering_result$`+F +N / +F -N`
     )
   )
   
