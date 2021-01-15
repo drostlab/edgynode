@@ -202,12 +202,34 @@ network_benchmark_noise_filtering <-
         dist_type = dist_type,
         print_message = print_message
       )
+  
+    # Comparison 5: not-filter, normalized vs filtered, not-normalized
+    no_noise_with_qnorm_VS_noise_removed_no_qnorm <-
+      network_dist_pairwise_genes(
+        adj_mat_not_filtered_but_normalized_binary[kept_genes, kept_genes],
+        adj_mat_filtered_and_not_normalized_binary[kept_genes, kept_genes],
+        dist_type = dist_type,
+        print_message = print_message
+      )
+    
+    # Comparison 6: filtered, normalized vs filtered, not-normalized
+    noise_removed_and_qnorm_VS_noise_removed_no_qnorm <-
+      network_dist_pairwise_genes(
+        adj_mat_filtered_and_normalized_binary[kept_genes, kept_genes],
+        adj_mat_filtered_and_not_normalized_binary[kept_genes, kept_genes],
+        dist_type = dist_type,
+        print_message = print_message
+      )
+    
+    
     
     if (length(unique(c(
       length(no_noise_no_qnorm_VS_noise_removed_no_qnorm),
       length(no_noise_no_qnorm_VS_no_noise_with_qnorm),
       length(no_noise_no_qnorm_VS_noise_removed_with_qnorm),
-      length(no_noise_with_qnorm_VS_noise_removed_with_qnorm)
+      length(no_noise_with_qnorm_VS_noise_removed_with_qnorm),
+      length(noise_removed_and_qnorm_VS_noise_removed_no_qnorm),
+      length(no_noise_with_qnorm_VS_noise_removed_no_qnorm)
     ))) > 1)
       stop("After pairwise inner joining some joined matrices seem to have different dimensionalities and thus different distance vector lengths that cannot be returned. Please check what might have gone wrong.")
     
@@ -222,10 +244,12 @@ network_benchmark_noise_filtering <-
     res <- tibble::tibble(
       grn_tool = rep(grn_tool, length(no_noise_no_qnorm_VS_noise_removed_no_qnorm)),
       genes = names(no_noise_no_qnorm_VS_noise_removed_no_qnorm),
-      `Original vs Filtered, Not Normalized` = no_noise_no_qnorm_VS_noise_removed_no_qnorm,
-      `Original vs Not Filtered, But Normalized` = no_noise_no_qnorm_VS_no_noise_with_qnorm,
-      `Original vs Filtered, Normalized` = no_noise_no_qnorm_VS_noise_removed_with_qnorm,
-      `Not Filtered, But Normalized vs Filtered, Normalized` = no_noise_with_qnorm_VS_noise_removed_with_qnorm
+      `-F -N / +F -N` = no_noise_no_qnorm_VS_noise_removed_no_qnorm,
+      `-F -N / -F +N` = no_noise_no_qnorm_VS_no_noise_with_qnorm,
+      `-F -N / +F +N` = no_noise_no_qnorm_VS_noise_removed_with_qnorm,
+      `-F +N / +F +N` = no_noise_with_qnorm_VS_noise_removed_with_qnorm,
+      `-F +N / +F -N` = no_noise_with_qnorm_VS_noise_removed_no_qnorm,
+      `+F +N / +F -N` = noise_removed_and_qnorm_VS_noise_removed_no_qnorm
     )
     
     return (res) 
