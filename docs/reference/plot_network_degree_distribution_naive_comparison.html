@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Visualize noise filter benchmarking results — plot_network_benchmark_noise_filtering • edgynode</title>
+<title>Benchmarking of noise filtering and normalization impact on network inference — plot_network_degree_distribution_naive_comparison • edgynode</title>
 
 
 <!-- jquery -->
@@ -39,9 +39,21 @@
 
 
 
-<meta property="og:title" content="Visualize noise filter benchmarking results — plot_network_benchmark_noise_filtering" />
-<meta property="og:description" content="This function takes a noise-filtering benchmark result generated with
-network_benchmark_noise_filtering as input and visualizes the results as violin-plots." />
+<meta property="og:title" content="Benchmarking of noise filtering and normalization impact on network inference — plot_network_degree_distribution_naive_comparison" />
+<meta property="og:description" content="This function takes four types of matrices as input which
+were generated with the same network inference tool (e.g. GENIE3), but had
+different input data to the network inference tool in the context of
+noise-filtering and quantile-normalization.
+It is assumed that the four matrices inserted into this function come from
+network inference runs with the following input data specifications:
+Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (adj_mat_not_filtered_not_normalized)
+Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (adj_mat_filtered_and_not_normalized)
+Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (adj_mat_not_filtered_but_normalized)
+Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (adj_mat_filtered_and_normalized)
+
+
+All relevant pairwise comparisons are then performed internally with network_dist_pairwise_genes based on gene-wise
+Hamming Distance or Jaccard Similarity Coefficient computations." />
 
 
 
@@ -104,56 +116,96 @@ network_benchmark_noise_filtering as input and visualizes the results as violin-
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Visualize noise filter benchmarking results</h1>
+    <h1>Benchmarking of noise filtering and normalization impact on network inference</h1>
     
-    <div class="hidden name"><code>plot_network_benchmark_noise_filtering.Rd</code></div>
+    <div class="hidden name"><code>plot_network_degree_distribution_naive_comparison.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function takes a noise-filtering benchmark result generated with
-<code><a href='network_benchmark_noise_filtering.html'>network_benchmark_noise_filtering</a></code> as input and visualizes the results as violin-plots.</p>
+    <p>This function takes four types of matrices as input which
+were generated with the same network inference tool (e.g. GENIE3), but had
+different input data to the network inference tool in the context of
+noise-filtering and quantile-normalization.
+It is assumed that the four matrices inserted into this function come from
+network inference runs with the following input data specifications:</p><ul>
+<li><p>Raw mapped RNAseq count data without noise-filtering or quantile-normalization applied (<code>adj_mat_not_filtered_not_normalized</code>)</p></li>
+<li><p>Raw mapped RNAseq count data with noise-filtering applied but no quantile-normalization (<code>adj_mat_filtered_and_not_normalized</code>)</p></li>
+<li><p>Raw mapped RNAseq count data without noise-filtering but with quantile-normalization applied (<code>adj_mat_not_filtered_but_normalized</code>)</p></li>
+<li><p>Raw mapped RNAseq count data with noise-filtering applied and with quantile-normalization applied (<code>adj_mat_filtered_and_normalized</code>)</p></li>
+</ul>
+
+<p>All relevant pairwise comparisons are then performed internally with <code><a href='network_dist_pairwise_genes.html'>network_dist_pairwise_genes</a></code> based on gene-wise
+Hamming Distance or Jaccard Similarity Coefficient computations.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_network_benchmark_noise_filtering</span><span class='op'>(</span>
-  <span class='va'>network_benchmark_noise_filtering_result</span>,
-  <span class='va'>dist_type</span>,
-  xlab <span class='op'>=</span> <span class='st'>"Comparison"</span>,
-  title <span class='op'>=</span> <span class='st'>""</span>,
-  y_ticks <span class='op'>=</span> <span class='fl'>10</span>
+    <pre class="usage"><span class='fu'>plot_network_degree_distribution_naive_comparison</span><span class='op'>(</span>
+  <span class='va'>adj_mat_not_filtered_not_normalized</span>,
+  <span class='va'>adj_mat_filtered_and_not_normalized</span>,
+  <span class='va'>adj_mat_not_filtered_but_normalized</span>,
+  <span class='va'>adj_mat_filtered_and_normalized</span>,
+  threshold <span class='op'>=</span> <span class='st'>"median"</span>,
+  xlab <span class='op'>=</span> <span class='st'>"Gene"</span>,
+  ylab <span class='op'>=</span> <span class='st'>"Node degree"</span>,
+  y_ticks <span class='op'>=</span> <span class='fl'>15</span>,
+  print_message <span class='op'>=</span> <span class='cn'>TRUE</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>network_benchmark_noise_filtering_result</th>
-      <td><p>a benchmark result <code>tibble</code> generated with <code><a href='network_benchmark_noise_filtering.html'>network_benchmark_noise_filtering</a></code>.</p></td>
+      <th>adj_mat_not_filtered_not_normalized</th>
+      <td><p>a weighted adjacency matrix derived from a network inference program
+where no noise-filtering or quantile-normalization was applied to the input data.</p></td>
     </tr>
     <tr>
-      <th>dist_type</th>
-      <td><p>distance method that shall be applied on the binary values for each gene. Available options are:</p><ul>
-<li><p><code>dist_type = "hamming"</code>: computes the <code><a href='https://rdrr.io/pkg/e1071/man/hamming.distance.html'>hamming.distance</a></code> for each gene between the two input matrices</p></li>
-<li><p><code>dist_type = "jaccard"</code>: computes the <code><a href='https://rdrr.io/pkg/jaccard/man/jaccard.html'>jaccard</a></code> for each gene between the two input matrices</p></li>
-</ul><p>See <code><a href='network_dist_pairwise_genes.html'>network_dist_pairwise_genes</a></code> for details.</p>
-<p>Finally, a <code><a href='https://rdrr.io/r/stats/kruskal.test.html'>kruskal.test</a></code> is performed to assess the statistical significance of comparison differences.</p></td>
+      <th>adj_mat_filtered_and_not_normalized</th>
+      <td><p>a weighted adjacency matrix derived from a network inference program
+where noise-filtering but no quantile-normalization was applied to the input data.</p></td>
+    </tr>
+    <tr>
+      <th>adj_mat_not_filtered_but_normalized</th>
+      <td><p>a weighted adjacency matrix derived from a network inference program
+where no noise-filtering but quantile-normalization was applied to the input data.</p></td>
+    </tr>
+    <tr>
+      <th>adj_mat_filtered_and_normalized</th>
+      <td><p>a weighted adjacency matrix derived from a network inference program
+where noise-filtering and quantile-normalization were applied to the input data.</p></td>
+    </tr>
+    <tr>
+      <th>threshold</th>
+      <td><p>we recommended to use <code><a href='network_rescale.html'>network_rescale</a></code>
+before using this function. Re-scaling will transform all values into a range [0,100].
+The threshold can either be a numeric value in the interval [0,100] or a character string
+specifying the following methods for automatically determining the threshold based on the input data:</p><ul>
+<li><p><code>threshold = "median"</code>: compute the <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code> over the entire input <code>adj_mat</code> and use this
+<code>median</code> value as threshold for defining all edge weights of a genes equal or below the <code>median</code>
+value as <code>0</code> and all values above the <code>median</code> value as <code>1</code>.</p></li>
+</ul><p>See <code><a href='network_make_binary.html'>network_make_binary</a></code> for details.
+See <code><a href='network_statistics_degree_distribution_naive.html'>network_statistics_degree_distribution_naive</a></code> for details.</p></td>
     </tr>
     <tr>
       <th>xlab</th>
       <td><p>x-axis label.</p></td>
     </tr>
     <tr>
-      <th>title</th>
-      <td><p>a character string denoting the plot title.</p></td>
+      <th>ylab</th>
+      <td><p>y-axis label.</p></td>
     </tr>
     <tr>
       <th>y_ticks</th>
-      <td><p>the number of ticks that shall be drawn on the y-axis.</p></td>
+      <td><p>number of y-ticks.</p></td>
+    </tr>
+    <tr>
+      <th>print_message</th>
+      <td><p>shall messages be printed?</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Hajk-Georg Drost</p>
+    <p>lmshk and Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># Benchmark GENIE3 inferred networks with raw, no_noise, and quantile_norm combinations</span>
@@ -173,20 +225,14 @@ network_benchmark_noise_filtering as input and visualizes the results as violin-
 <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"data/network_noNoiseCM_qnorm_49_placenta_development.csv"</span>,
  package <span class='op'>=</span> <span class='st'>"edgynode"</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 
-<span class='co'># Run Benchmark using Hamming distance</span>
-<span class='va'>benchmark_hamming</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_benchmark_noise_filtering.html'>network_benchmark_noise_filtering</a></span><span class='op'>(</span>
+
+<span class='co'># Plot Results</span>
+<span class='fu'>plot_network_degree_distribution_naive_comparison</span><span class='op'>(</span>
 <span class='va'>genie3_49_raw</span>,
 <span class='va'>genie3_49_noNoiseCM_raw</span>,
 <span class='va'>genie3_49_qnorm_no_noise_removed</span>,
-<span class='va'>genie3_49_noNoiseCM_qnorm</span>,
-dist_type <span class='op'>=</span> <span class='st'>"hamming"</span>,
-grn_tool <span class='op'>=</span> <span class='st'>"GENIE3"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [11.27] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [9.95] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [10.75] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [11.04] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>Comparison 1: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_filtered_and_not_normalized'</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>Comparison 2: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_not_filtered_but_normalized'</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>Comparison 3: 'adj_mat_not_filtered_not_normalized' vs 'adj_mat_filtered_and_normalized'</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='output co'>#&gt; <span class='message'></span></div><div class='output co'>#&gt; <span class='message'>Comparison 4: 'adj_mat_not_filtered_but_normalized' vs 'adj_mat_filtered_and_normalized'</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_qry: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>- adj_mat_sbj: nrow = (46) and ncol(46)</span></div><div class='output co'>#&gt; <span class='message'>The Hamming Distances for each gene between the two input matrices are computed.</span></div><div class='input'>
-<span class='co'># visualize at results</span>
-<span class='fu'>plot_network_benchmark_noise_filtering</span><span class='op'>(</span><span class='va'>benchmark_hamming</span>,
-            dist_type <span class='op'>=</span> <span class='st'>"hamming"</span>, title <span class='op'>=</span> <span class='st'>"Network Inference Tool: GENIE3"</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>Kruskal-Wallis Rank Sum Test; p = 1.09382250553113e-19</span></div><div class='img'><img src='plot_network_benchmark_noise_filtering-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+<span class='va'>genie3_49_noNoiseCM_qnorm</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [11.97] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [9.95] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [11.37] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies the median value over all values in the input matrix an uses [11.04] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='img'><img src='plot_network_degree_distribution_naive_comparison-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

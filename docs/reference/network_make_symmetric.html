@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Plot the naive degree distribution of a degree table — plot_network_degree_distribution_naive • edgynode</title>
+<title>Force a matrix into being symmetric — network_make_symmetric • edgynode</title>
 
 
 <!-- jquery -->
@@ -39,10 +39,8 @@
 
 
 
-<meta property="og:title" content="Plot the naive degree distribution of a degree table — plot_network_degree_distribution_naive" />
-<meta property="og:description" content="This function takes a degree table generated with
-network_make_binary and network_degree_distribution_naive as input
-and visualizes the corresponding naive degree distribution." />
+<meta property="og:title" content="Force a matrix into being symmetric — network_make_symmetric" />
+<meta property="og:description" content="This function takes and adj_mat as input and forces it into being symmetric." />
 
 
 
@@ -105,64 +103,30 @@ and visualizes the corresponding naive degree distribution." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Plot the naive degree distribution of a degree table</h1>
+    <h1>Force a matrix into being symmetric</h1>
     
-    <div class="hidden name"><code>plot_network_degree_distribution_naive.Rd</code></div>
+    <div class="hidden name"><code>network_make_symmetric.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This function takes a degree table generated with
-<code><a href='network_make_binary.html'>network_make_binary</a></code> and <code>network_degree_distribution_naive</code> as input
-and visualizes the corresponding naive degree distribution.</p>
+    <p>This function takes and <code>adj_mat</code> as input and forces it into being symmetric.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>plot_network_degree_distribution_naive</span><span class='op'>(</span>
-  <span class='va'>degree_tbl</span>,
-  xlab <span class='op'>=</span> <span class='st'>"Gene name"</span>,
-  ylab <span class='op'>=</span> <span class='st'>"Node degree per gene"</span>,
-  y_ticks <span class='op'>=</span> <span class='fl'>12</span>
-<span class='op'>)</span></pre>
+    <pre class="usage"><span class='fu'>network_make_symmetric</span><span class='op'>(</span><span class='va'>adj_mat</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>degree_tbl</th>
-      <td><p>a degree table generated with
-<code><a href='network_make_binary.html'>network_make_binary</a></code> and <code>network_degree_distribution_naive</code>.</p></td>
-    </tr>
-    <tr>
-      <th>xlab</th>
-      <td><p>x-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>ylab</th>
-      <td><p>y-axis label.</p></td>
-    </tr>
-    <tr>
-      <th>y_ticks</th>
-      <td><p>number of ticks on y-axis.</p></td>
+      <th>adj_mat</th>
+      <td><p>an adjacency matrix that shall be made symmetric.</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
 
-    <p>Sergio Vasquez and Hajk-Georg Drost</p>
+    <p>lmshk</p>
 
-    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># path to PPCOR output file</span>
-<span class='va'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
-<span class='co'># import PPCOR output into adjacency matrix</span>
-<span class='va'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ppcor.html'>ppcor</a></span><span class='op'>(</span><span class='va'>ppcor_output</span><span class='op'>)</span>
-<span class='co'># rescaling matrix</span>
-<span class='va'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>It seems like your input matrix contains values of correlation coefficients range(-1,1). Please be aware that for negative values the absolute value will be taken before rescaling. We transformed all negative values to their absolute values.</span></div><div class='input'><span class='co'># make weighted adjacency matrix binary</span>
-<span class='va'>ppcor_binary_adj_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_make_binary.html'>network_make_binary</a></span><span class='op'>(</span><span class='va'>ppcor_rescaled</span>, threshold <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>network_make_binary() applies [70] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix.</span></div><div class='input'><span class='co'># calculate network statistics</span>
-<span class='va'>ppcor_statistics</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_statistics_degree_distribution_naive.html'>network_statistics_degree_distribution_naive</a></span><span class='op'>(</span><span class='va'>ppcor_binary_adj_mat</span><span class='op'>)</span>
-<span class='co'># look at results</span>
-<span class='fu'>plot_network_degree_distribution_naive</span><span class='op'>(</span><span class='va'>ppcor_statistics</span><span class='op'>)</span>
-</div><div class='img'><img src='plot_network_degree_distribution_naive-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

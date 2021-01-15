@@ -133,15 +133,15 @@ same genes in two different network topologies (denoted as <code>adj_mat_qry</co
       <td><p>a binary adjacency matrix with the same genes as in <code>adj_mat_qry</code>, but with differnt binary edge weights generated with <code><a href='network_rescale.html'>network_rescale</a></code> and <code><a href='network_make_binary.html'>network_make_binary</a></code>.</p></td>
     </tr>
     <tr>
-      <th>print_message</th>
-      <td><p>shall massages be printed? Default is <code>print_message = TRUE</code>.</p></td>
-    </tr>
-    <tr>
-      <th>dist_method</th>
+      <th>dist_type</th>
       <td><p>a distance method that shall be applied on the binary values for each gene. Available options are:</p><ul>
 <li><p><code>dist_type = "hamming"</code>: computes the <code><a href='https://rdrr.io/pkg/e1071/man/hamming.distance.html'>hamming.distance</a></code> for each gene between the two input matrices</p></li>
 <li><p><code>dist_type = "jaccard"</code>: computes the <code><a href='https://rdrr.io/pkg/jaccard/man/jaccard.html'>jaccard</a></code> for each gene between the two input matrices</p></li>
 </ul></td>
+    </tr>
+    <tr>
+      <th>print_message</th>
+      <td><p>shall massages be printed? Default is <code>print_message = TRUE</code>.</p></td>
     </tr>
     </table>
 
@@ -223,7 +223,7 @@ same genes in two different network topologies (denoted as <code>adj_mat_qry</co
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sergio Vasquez, Hajk-Georg Drost.</p>
+  <p>Developed by Hajk-Georg Drost, lmshk, Sergio Vasquez.</p>
 </div>
 
 <div class="pkgdown">

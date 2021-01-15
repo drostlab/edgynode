@@ -142,7 +142,7 @@ the weight distribution for all edges of a gene.</p>
 before using this function. Re-scaling will transform all values into a range [0,100].
 The threshold can either be a numeric balue in the interval [0,100] or a character string
 specifying the following methods for automatically determining the threshold based on the input data:</p><ul>
-<li><p><code>threshold = "median"</code>: compute the <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code> over the entire input <code>adj_mat</code> and use this 
+<li><p><code>threshold = "median"</code>: compute the <code><a href='https://rdrr.io/r/stats/median.html'>median</a></code> over the entire input <code>adj_mat</code> and use this
 <code>median</code> value as threshold for defining all edge weights of a genes equal or below the <code>median</code>
 value as <code>0</code> and all values above the <code>median</code> value as <code>1</code>.</p></li>
 </ul><p>The threshold value will then be drawn as vertical line in the plot.</p></td>
@@ -154,14 +154,14 @@ value as <code>0</code> and all values above the <code>median</code> value as <c
     <p>Sergio Vasquez and Hajk-Georg Drost</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># path to PPCOR output file</span>
-<span class='va'>ppcor_output</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>'beeline_examples/PPCOR/outFile.txt'</span>, package <span class='op'>=</span> <span class='st'>'edgynode'</span><span class='op'>)</span>
-<span class='co'># import PPCOR output into adjacency matrix</span>
-<span class='va'>ppcor_parsed</span> <span class='op'>&lt;-</span> <span class='fu'><a href='ppcor.html'>ppcor</a></span><span class='op'>(</span><span class='va'>ppcor_output</span><span class='op'>)</span>
+    <pre class="examples"><div class='input'><span class='va'>genie3_49_raw</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>as.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/utils/read.table.html'>read.csv</a></span><span class='op'>(</span>
+<span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"data/network_raw_49_placenta_development.csv"</span>,
+ package <span class='op'>=</span> <span class='st'>"edgynode"</span><span class='op'>)</span>, row.names <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span><span class='op'>)</span>
 <span class='co'># rescaling weighted adjacency matrix to range [0,100]</span>
-<span class='va'>ppcor_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>ppcor_parsed</span><span class='op'>)</span>
-</div><div class='output co'>#&gt; <span class='message'>It seems like your input matrix contains values of correlation coefficients range(-1,1). Please be aware that for negative values the absolute value will be taken before rescaling. We transformed all negative values to their absolute values.</span></div><div class='input'><span class='co'># visualize weight distributions over all edges for each gene</span>
-<span class='fu'>plot_network_weight_distribution_boxplot</span><span class='op'>(</span><span class='va'>ppcor_rescaled</span>, threshold <span class='op'>=</span> <span class='fl'>70</span><span class='op'>)</span>
+<span class='va'>genie_rescaled</span> <span class='op'>&lt;-</span> <span class='fu'><a href='network_rescale.html'>network_rescale</a></span><span class='op'>(</span><span class='va'>genie3_49_raw</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='warning'>Warning: The matrix provided as input for network_rescale() was coerced into symmetric.</span></div><div class='input'><span class='co'># visualize weight distributions over all edges for each gene</span>
+<span class='co'># with median threshold</span>
+<span class='fu'>plot_network_weight_distribution_boxplot</span><span class='op'>(</span><span class='va'>genie_rescaled</span>, threshold <span class='op'>=</span> <span class='st'>"median"</span><span class='op'>)</span>
 </div><div class='img'><img src='plot_network_weight_distribution_boxplot-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -174,7 +174,7 @@ value as <code>0</code> and all values above the <code>median</code> value as <c
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sergio Vasquez, Hajk-Georg Drost.</p>
+  <p>Developed by Hajk-Georg Drost, lmshk, Sergio Vasquez.</p>
 </div>
 
 <div class="pkgdown">

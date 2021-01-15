@@ -118,7 +118,8 @@ the weight distribution for all edges of a gene.</p>
   <span class='va'>adj_mat</span>,
   xlab <span class='op'>=</span> <span class='st'>"Edge weight"</span>,
   ylab <span class='op'>=</span> <span class='st'>"Gene name"</span>,
-  <span class='va'>threshold</span>
+  <span class='va'>threshold</span>,
+  x_ticks <span class='op'>=</span> <span class='fl'>10</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -147,6 +148,10 @@ specifying the following methods for automatically determining the threshold bas
 value as <code>0</code> and all values above the <code>median</code> value as <code>1</code>.</p></li>
 </ul><p>The threshold value will then be drawn as vertical line in the plot.</p></td>
     </tr>
+    <tr>
+      <th>x_ticks</th>
+      <td><p>number of y-axis ticks.</p></td>
+    </tr>
     </table>
 
     <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
@@ -174,7 +179,7 @@ value as <code>0</code> and all values above the <code>median</code> value as <c
 
       <footer>
       <div class="copyright">
-  <p>Developed by Sergio Vasquez, Hajk-Georg Drost.</p>
+  <p>Developed by Hajk-Georg Drost, lmshk, Sergio Vasquez.</p>
 </div>
 
 <div class="pkgdown">
