@@ -6,8 +6,8 @@
 \usage{
 plot_network_degree_distribution_naive(
   degree_tbl,
-  xlab = "Gene Name",
-  ylab = "Node Degree per Gene",
+  xlab = "Gene name",
+  ylab = "Node degree per gene",
   y_ticks = 12
 )
 }

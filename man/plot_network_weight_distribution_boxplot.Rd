@@ -34,14 +34,14 @@ This function takes a weighted adjacency matrix and plots
 the weight distribution for all edges of a gene.
 }
 \examples{
-# path to PPCOR output file
-ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
-# import PPCOR output into adjacency matrix
-ppcor_parsed <- ppcor(ppcor_output)
+genie3_49_raw <- as.matrix(read.csv(
+system.file("data/network_raw_49_placenta_development.csv",
+ package = "edgynode"), row.names = 1))
 # rescaling weighted adjacency matrix to range [0,100]
-ppcor_rescaled <- network_rescale(ppcor_parsed)
+genie_rescaled <- network_rescale(genie3_49_raw)
 # visualize weight distributions over all edges for each gene
-plot_network_weight_distribution_boxplot(ppcor_rescaled, threshold = 70)
+# with median threshold
+plot_network_weight_distribution_boxplot(genie_rescaled, threshold = "median")
 }
 \author{
 Sergio Vasquez and Hajk-Georg Drost
