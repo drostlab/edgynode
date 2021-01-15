@@ -2,8 +2,9 @@ Package: edgynode
 Type: Package
 Title: Analytics of Gene Regulatory Networks
 Version: 0.1.0
-Authors@R: c(person("Sergio", "Vasquez", , "sergio.vasquez@tuebingen.mpg.de", c("aut", "ctb")),
-            person("Hajk-Georg", "Drost", , "hajk-georg.drost@tuebingen.mpg.de", c("cre", "aut", "ctb"))
+Authors@R: c(person("Hajk-Georg", "Drost", , "hajk-georg.drost@tuebingen.mpg.de", c("cre", "aut", "ctb")),
+            person("lmshk", "", , "", c("aut", "ctb")),
+            person("Sergio", "Vasquez", , "sergio.vasquez@tuebingen.mpg.de", c("aut", "ctb"))
             )
 Maintainer: Hajk-Georg Drost <hajk-georg.drost@tuebingen.mpg.de>
 Description: Imports correlation matrices of gene regulatory networks inferred with different gene regulatory network inference tools such as GENIE3, GRNBoost2, LEAP, PIDC and provides data transformation and network analytics functions to statistically assess, compare and visualize imported networks.
