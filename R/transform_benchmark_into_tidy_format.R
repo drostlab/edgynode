@@ -10,10 +10,12 @@ transform_benchmark_into_tidy_format <- function(network_benchmark_noise_filteri
   adj_mat_long$name <- factor(
     adj_mat_long$name,
     levels = c(
-      "Original vs Filtered, Not Normalized",
-      "Not Filtered, But Normalized vs Filtered, Normalized",
-      "Original vs Not Filtered, But Normalized",
-      "Original vs Filtered, Normalized"
+      "-F -N / +F -N",
+      "-F +N / +F +N",
+      "-F -N / -F +N",
+      "-F -N / +F +N",
+      "-F +N / +F -N",
+      "+F +N / +F -N"
     ))
   
   return(adj_mat_long)
