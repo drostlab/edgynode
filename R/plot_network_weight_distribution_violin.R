@@ -39,16 +39,16 @@ plot_network_weight_distribution_violin <-
     if (threshold == "median") {
       threshold <- round(stats::median(adj_mat) , 2)
     }
-  
+    
     p <-
       ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) +
       ggplot2::geom_point(
-        ggplot2::aes(y = name, color = value),
-        size = .3,
+        size = 0.1,
         alpha = 0.4,
+        colour = "black",
         position = ggplot2::position_jitter(width = 0, height = 0.28)
       ) +
-      ggplot2::geom_violin(alpha = 0) +
+      ggplot2::geom_violin(colour = "darkgray") +
       ggplot2::xlab(xlab) + ggplot2::ylab(ylab) +
       ggplot2::geom_vline(
         xintercept = threshold,
@@ -56,7 +56,12 @@ plot_network_weight_distribution_violin <-
         size = 0.6,
         alpha = 0.3
       ) +
-      ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
+      ggplot2::theme(
+        panel.background = ggplot2::element_rect(fill = NA),
+        axis.title       = ggplot2::element_text(size = 16),
+        axis.text.y      = ggplot2::element_text(size = 4),
+        axis.text.x      = ggplot2::element_text(size = 16)
+      )
     
     
     return(p)
