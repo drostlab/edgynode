@@ -8,7 +8,7 @@
 #' \item \code{dist_type = "jaccard"}: computes the \code{\link[jaccard]{jaccard}} for each gene between the two input matrices
 #' }
 #' See \code{\link{network_dist_pairwise_genes}} for details.
-#' 
+#'
 #' Finally, a \code{\link{kruskal.test}} is performed to assess the statistical significance of comparison differences.
 #' @param xlab x-axis label.
 #' @param title a character string denoting the plot title.
@@ -50,7 +50,7 @@
 plot_network_benchmark_noise_filtering <-
   function(network_benchmark_noise_filtering_result,
            dist_type,
-           xlab = "",
+           xlab = "Comparison",
            title = "",
            y_ticks = 10) {
     if (!is.element(dist_type, c("hamming", "jaccard")))
@@ -58,14 +58,16 @@ plot_network_benchmark_noise_filtering <-
            call. = FALSE)
     
     # compute p-value from Kruskal-Wallis rank sum test
-    kruskal_p_val <- network_benchmark_noise_filtering_kruskal_test(network_benchmark_noise_filtering_result)$p.val
+    kruskal_p_val <-
+      network_benchmark_noise_filtering_kruskal_test(network_benchmark_noise_filtering_result)$p.val
     
     tidy_benchmark_result <-
       transform_benchmark_into_tidy_format(network_benchmark_noise_filtering_result)
     
     message(paste0("Kruskal-Wallis Rank Sum Test; p = ", kruskal_p_val))
     
-    Comparison <- `Hamming Distance` <- `Jaccard Similarity Coefficient` <- NULL
+    Comparison <-
+      `Hamming Distance` <- `Jaccard Similarity Coefficient` <- NULL
     
     if (dist_type == "hamming") {
       names(tidy_benchmark_result) <-
@@ -73,43 +75,37 @@ plot_network_benchmark_noise_filtering <-
       p <-
         ggplot2::ggplot(
           tidy_benchmark_result,
-          ggplot2::aes(
-            #x = factor(
-              x = Comparison,
-              # levels = c(
-              #   "Original vs Filtered, Not Normalized",
-              #   "Not Filtered, But Normalized vs Filtered, Normalized",
-              #   "Original vs Not Filtered, But Normalized",
-              #   "Original vs Filtered, Normalized"
-              # )),
+          ggplot2::aes(#x = factor(
+            x = Comparison,
+            # levels = c(
+            #   "Original vs Filtered, Not Normalized",
+            #   "Not Filtered, But Normalized vs Filtered, Normalized",
+            #   "Original vs Not Filtered, But Normalized",
+            #   "Original vs Filtered, Normalized"
+            # )),
             y = `Hamming Distance`,
-            fill = Comparison
-          )
+            fill = Comparison)
         ) +
-        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 1, position = ggplot2::position_jitterdodge(),
-                                                                 alpha = 0.4)  +
+        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(
+          size = 1,
+          position = ggplot2::position_jitterdodge(jitter.width = 0.75),
+          alpha = 0.4
+        )  +
         ggplot2::theme_minimal() +
-        ggplot2::labs(x = xlab, y = "Hamming Distance", title = title) +
+        ggplot2::labs(x = xlab, y = "Hamming distance", title = title) +
         ggplot2::theme(
           title            = ggplot2::element_text(size = 16, face = "bold"),
-          legend.title     = ggplot2::element_text(size = 16, face = "bold"),
-          legend.text      = ggplot2::element_text(size = 8, face = "bold"),
+          legend.position  = "none",
           axis.title       = ggplot2::element_text(size = 16, face = "bold"),
-          axis.text.y      = ggplot2::element_text(size = 16, face = "bold"),
-          axis.text.x      = ggplot2::element_blank(),
+          axis.text.y      = ggplot2::element_text(size = 9, face = "bold"),
+          axis.text.x      = ggplot2::element_text(size = 9, face = "bold"),
           panel.background = ggplot2::element_blank(),
           strip.text.x     = ggplot2::element_text(
             size           = 18,
             colour         = "black",
             face           = "bold"
           )
-        ) + ggsci::scale_fill_aaas() +
-        ggplot2::scale_x_discrete(breaks = NULL) +
-        ggplot2::theme(axis.text.x = ggplot2::element_text(
-          angle = 90,
-          vjust = 1,
-          hjust = 1
-        )) + ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = y_ticks))
+        ) + ggsci::scale_fill_aaas() + ggplot2::scale_y_continuous(breaks = scales::pretty_breaks(n = y_ticks))
     }
     
     if (dist_type == "jaccard") {
@@ -122,17 +118,24 @@ plot_network_benchmark_noise_filtering <-
         ggplot2::ggplot(
           tidy_benchmark_result,
           ggplot2::aes(
-          x = factor(
-          Comparison, 
-            levels = c(
-              "Original vs Filtered, Not Normalized",
-              "Not Filtered, But Normalized vs Filtered, Normalized",
-              "Original vs Not Filtered, But Normalized",
-              "Original vs Filtered, Normalized"
-          )),
-          y = `Jaccard Similarity Coefficient`, fill = Comparison)) +
-        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(size = 1, position = ggplot2::position_jitterdodge(),
-                                                                 alpha = 0.4)  +
+            x = factor(
+              Comparison,
+              levels = c(
+                "Original vs Filtered, Not Normalized",
+                "Not Filtered, But Normalized vs Filtered, Normalized",
+                "Original vs Not Filtered, But Normalized",
+                "Original vs Filtered, Normalized"
+              )
+            ),
+            y = `Jaccard Similarity Coefficient`,
+            fill = Comparison
+          )
+        ) +
+        ggplot2::geom_violin(alpha = 0.7) + ggplot2::geom_point(
+          size = 1,
+          position = ggplot2::position_jitterdodge(),
+          alpha = 0.4
+        )  +
         ggplot2::theme_minimal() +
         ggplot2::labs(x = xlab, y = "Jaccard Similarity Coefficient", title = title) +
         ggplot2::theme(
