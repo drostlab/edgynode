@@ -20,26 +20,37 @@ devtools::install_github("drostlab/edgynode")
 
 ### Small example with internal dataset
 ```r
-##### Compare networks inferred by PPCOR and PIDC
-## Import and rescale PPCOR network
-# path to PPCOR output file
-ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
-# import PPCOR specific output
-ppcor_parsed <- edgynode::ppcor(ppcor_output)
-# rescaling PPCOR output
-ppcor_rescaled <- edgynode::network_rescale(ppcor_parsed)
+# library(edgynode)
 
-## Import and rescale PIDC network
-# path to PIDC output file
-pidc_output <- system.file('beeline_examples/PIDC/outFile.txt', package = 'edgynode')
-# import PIDC specific output
-pidc_parsed <- edgynode::pidc(pidc_output)
-# rescaling PIDC output
-pidc_rescaled <- edgynode::network_rescale(pidc_parsed)
+# Benchmark GENIE3 inferred networks with raw, no_noise, and quantile_norm combinations
+genie3_49_raw <- as.matrix(read.csv(
+system.file("data/network_raw_49_placenta_development.csv",
+ package = "edgynode"), row.names = 1))
 
+genie3_49_noNoiseCM_raw <- as.matrix(read.csv(
+system.file("data/network_noNoiseCM_raw_49_placenta_development.csv",
+ package = "edgynode"), row.names = 1))
 
-### compare both networks
-compared <- edgynode::network_compare(ppcor_rescaled, pidc_rescaled)
-# Visualize output
-compared
+genie3_49_qnorm_no_noise_removed <- as.matrix(read.csv(
+system.file("data/network_qnorm_49_placenta_development.csv",
+ package = "edgynode"), row.names = 1))
+
+genie3_49_noNoiseCM_qnorm <- as.matrix(read.csv(
+system.file("data/network_noNoiseCM_qnorm_49_placenta_development.csv",
+ package = "edgynode"), row.names = 1))
+
+# Run Benchmark using Hamming distance
+benchmark_hamming <- edgynode::network_benchmark_noise_filtering(
+genie3_49_raw,
+genie3_49_noNoiseCM_raw,
+genie3_49_qnorm_no_noise_removed,
+genie3_49_noNoiseCM_qnorm,
+dist_type = "hamming",
+grn_tool = "GENIE3")
+
+# visualize at results
+edgynode::plot_network_benchmark_noise_filtering(benchmark_hamming,
+            dist_type = "hamming", 
+            title = "Network Inference Tool: GENIE3")
 ```
+![](img/Example_Fig1.png)
