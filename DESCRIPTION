@@ -13,7 +13,7 @@ Description: Imports correlation matrices of gene regulatory networks inferred
         transformation and network analytics functions to statistically assess, 
         compare and visualize networks.
 License: GPL-3
-Depends: R (>= 3.1.1)
+Depends: R (>= 4.1.0)
 Imports: fs, readr, igraph, e1071, philentropy, dplyr, tidyr, ggplot2, scales, stringr, tibble, ggsci
 Encoding: UTF-8
 LazyData: true
