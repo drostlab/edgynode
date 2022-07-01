@@ -31,11 +31,11 @@ check_same_names_error <- function(x1, x2){
   }else if(is.vector(x1) & is.vector(x2)){
     check <- identical(names(x1), names(x2))
   }else{
-    stop(deparse(substitute(x1)), " and ", deparse(substitute(x1)),
+    stop(deparse(substitute(x1)), " and ", deparse(substitute(x2)),
          "must both be vectors or both be matrices")
   }
   if(!check){
-    stop(deparse(substitute(x1)), " and ", deparse(substitute(x1)),
+    stop(deparse(substitute(x1)), " and ", deparse(substitute(x2)),
          " must have identical names")
   }
   invisible(NULL)
