@@ -1,8 +1,35 @@
 #' @title Force a matrix into being symmetric
-#' @description This function takes and \code{adj_mat} as input and forces it into being symmetric.
-#' @param adj_mat an adjacency matrix that shall be made symmetric.
-#' @author lmshk
+#' @description This function takes an adjacency matrix as input and forces it
+#' into being symmetric.
+#' @param adj the adjacency matrix
+#' @param method the element-wise function to be applied to the matrix and
+#' its transpose; default is \code{pmax}
+#' @author Ilias Moutsopoulos
 #' @export
 
-network_make_symmetric <- function(adj_mat)
-  pmax(adj_mat, t(adj_mat))
+make_symmetric <- function(adj, method = pmax){
+  # note other methods may cause this function to no longer be orthogonal
+  # with the scaling/binarisation; consider removing the parameter
+  check_adjacency_error(adj)
+  if(!attr(adj, "known_symmetric")){
+    attr(adj, "known_symmetric") <- TRUE
+    adj <- do.call(method, list(adj, t(adj)))
+  }
+  adj
+}
+
+#' @title Check if a matrix is symmetric
+#' @description This function takes an adjacency matrix as input and checks if
+#' it is symmetric.
+#' @param adj the adjacency matrix
+#' @author Ilias Moutsopoulos
+#' @export
+
+is_symmetric <- function(adj){
+  check_adjacency_error(adj)
+  if(attr(adj, "known_symmetric")){
+    return(TRUE)
+  }else{
+    return(isSymmetric(adj))
+  }
+}
