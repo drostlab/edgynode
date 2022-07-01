@@ -11,7 +11,8 @@ adj_to_edges <- function(adj){
     from = rep(rownames(adj), times = ncol(adj)),
     to = rep(colnames(adj), each = nrow(adj)),
     value = as.vector(adj)
-  )
+  ) |>
+    dplyr::filter(value != 0)
 }
 
 #' @title Convert an edge list to an adjacency matrix
@@ -32,6 +33,7 @@ edges_to_adj <- function(edges){
     ncol = length(cols),
     dimnames = list(rows, cols)
   )
+  # use apply and parallelise this
   for(k in seq_len(nrow(edges))){
     i <- match(edges$from[k], rows)
     j <- match(edges$to[k], cols)
@@ -43,11 +45,17 @@ edges_to_adj <- function(edges){
 edges_to_edges <- function(edges){
   if(ncol(edges) == 2) edges[, 3] <- 1
   colnames(edges)[1:3] <- c("from", "to", "value")
-  edges %>% as.data.frame() %>% dplyr::select(1:3)
+  edges |> as.data.frame() |> dplyr::select(1:3)
 }
 
 add_names_to_matrix <- function(x){
-  if(is.null(rownames(x))) rownames(x) <- paste0("N", seq_len(nrow(x)))
-  if(is.null(colnames(x))) colnames(x) <- paste0("N", seq_len(ncol(x)))
+  if(is.null(rownames(x)) & is.null(colnames(x))){
+    rownames(x) <- paste0("N", seq_len(nrow(x)))
+    colnames(x) <- paste0("N", seq_len(ncol(x)))
+  }else if(is.null(rownames(x))){
+    rownames(x) <- colnames(x)
+  }else if(is.null(colnames(x))){
+    colnames(x) <- rownames(x)
+  }
   x
 }
