@@ -4,7 +4,7 @@
 \alias{make_binary}
 \title{Convert a numeric matrix to binary}
 \usage{
-make_binary(adj, threshold = 0.5)
+make_binary(adj, threshold = 0.7)
 }
 \arguments{
 \item{adj}{the adjacency matrix}
