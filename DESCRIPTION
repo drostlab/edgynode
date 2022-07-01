@@ -1,7 +1,7 @@
 Package: edgynode
 Type: Package
 Title: Analytics of Gene Regulatory Networks
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(person("Hajk-Georg", "Drost", , "hajk-georg.drost@tuebingen.mpg.de", c("cre", "aut", "ctb")),
             person("Ilias", "Moutsopoulos", , "im383@cam.ac.uk", c("aut", "ctb")),
             person("lmshk", "", , "", c("aut", "ctb")),
