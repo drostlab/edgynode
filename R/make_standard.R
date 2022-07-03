@@ -1,15 +1,16 @@
-#' @title Force a matrix into a standard format
+#' @title Force a numeric matrix generated with \code{\link{make_adjacency}} into the \pkg{edgynode} standard matrix format
 #' @description This function takes an adjacency matrix as input and converts
 #' it into a standard form (based on the options provided).
-#' @param adj the adjacency matrix
+#' @param adj an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.
 #' @param max_value the maximum (positive) value that should exist in the
 #' matrix; default is 1; setting this to \code{NULL} or \code{max(abs(adj))}
 #' leaves the values unchanged
 #' @param no_negative whether there should be negative values or just their
-#' absolute value (e.g. in the case of correlations); default is TRUE
+#' absolute value (e.g. in the case of correlations); default is \code{no_negative = TRUE}.
 #' @param no_self_loops whether the values in the main diagonal of the
-#' adjacency matrix tshould be 0; default is TRUE
+#' adjacency matrix should be 0; default is \code{no_negative = TRUE}.
 #' @author Ilias Moutsopoulos
+#' @seealso \code{\link{make_adjacency}}, \code{\link{make_symmetric}}, \code{\link{make_binary}}
 #' @export
 
 make_standard <- function(

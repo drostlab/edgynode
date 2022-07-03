@@ -1,4 +1,4 @@
-#' @title Convert a numeric generated with \code{\link{make_adjacency}} into a binary matrix
+#' @title Convert a numeric matrix generated with \code{\link{make_adjacency}} into a binary matrix
 #' @description This function takes an adjacency matrix generated with \code{\link{make_adjacency}} as input and
 #' converts it to a binary matrix using a binarization threshold. 
 #' @param adj an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}. 

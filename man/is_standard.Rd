@@ -2,12 +2,12 @@
 % Please edit documentation in R/is_standard.R
 \name{is_standard}
 \alias{is_standard}
-\title{Check if a matrix is in a standard format}
+\title{Check if a numeric matrix generated with \code{\link{make_adjacency}} fulfills the \pkg{edgynode} standard format}
 \usage{
 is_standard(adj, max_value = 1, no_negative = TRUE, no_self_loops = TRUE)
 }
 \arguments{
-\item{adj}{the adjacency matrix}
+\item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
 
 \item{max_value}{the maximum (positive) value that should exist in the
 matrix; default is 1; setting this to \code{NULL} or \code{max(abs(adj))}

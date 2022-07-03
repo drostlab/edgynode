@@ -2,7 +2,7 @@
 % Please edit documentation in R/make_binary.R
 \name{make_binary}
 \alias{make_binary}
-\title{Convert a numeric generated with \code{\link{make_adjacency}} into a binary matrix}
+\title{Convert a numeric matrix generated with \code{\link{make_adjacency}} into a binary matrix}
 \usage{
 make_binary(adj, threshold)
 }
@@ -26,5 +26,5 @@ edgynode_matrix_binary <- edgynode::make_binary(edgynode_matrix, threshold = 1)
 edgynode_matrix_binary
 }
 \author{
-Ilias Moutsopoulos
+Ilias Moutsopoulos and Hajk-Georg Drost
 }
