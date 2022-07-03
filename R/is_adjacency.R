@@ -1,3 +1,8 @@
+#' @title Check whether input matrix is an adjacency matrix
+#' @description Imports a matrix and tests whether it is an adjacency in \pkg{edgynode} format.
+#' @param x a \code{\link{matrix}} object.
+#' @examples 
+#'  
 is_adjacency <- function(x){
   all(
     inherits(x, "adjacency"),
