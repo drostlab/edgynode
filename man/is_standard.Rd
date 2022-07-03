@@ -14,10 +14,10 @@ matrix; default is 1; setting this to \code{NULL} or \code{max(abs(adj))}
 leaves the values unchanged}
 
 \item{no_negative}{whether there should be negative values or just their
-absolute value (e.g. in the case of correlations); default is TRUE}
+absolute value (e.g. in the case of correlations); default is \code{no_negative = TRUE}.}
 
 \item{no_self_loops}{whether the values in the main diagonal of the
-adjacency matrix tshould be 0; default is TRUE}
+adjacency matrix should be 0; default is \code{no_negative = TRUE}.}
 }
 \description{
 This function takes an adjacency matrix as input and checks
