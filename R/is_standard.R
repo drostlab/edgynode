@@ -11,7 +11,7 @@ is_standard <- function(
     no_negative = TRUE,
     no_self_loops = TRUE
 ){
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(no_self_loops & !(sum(abs(diag(adj))) == 0)) return(FALSE)
   if(no_negative & !(all(adj >= 0))) return(FALSE)
   if(!is.null(max_value) & max(abs(adj)) != max_value) return(FALSE)
