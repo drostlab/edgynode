@@ -1,7 +1,7 @@
-#' @title Check if a matrix is binary
+#' @title Check if a numeric matrix generated with \code{\link{make_adjacency}} and \code{\link{make_binary}} is binary
 #' @description This function takes an adjacency matrix as input and
 #' checks if it is binary
-#' @param adj the adjacency matrix
+#' @param adj an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}} and optionally binarised with \code{\link{make_binary}}. 
 #' @author Ilias Moutsopoulos
 #' @export
 

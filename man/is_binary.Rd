@@ -2,12 +2,12 @@
 % Please edit documentation in R/is_binary.R
 \name{is_binary}
 \alias{is_binary}
-\title{Check if a matrix is binary}
+\title{Check if a numeric matrix generated with \code{\link{make_adjacency}} and \code{\link{make_binary}} is binary}
 \usage{
 is_binary(adj)
 }
 \arguments{
-\item{adj}{the adjacency matrix}
+\item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}} and optionally binarised with \code{\link{make_binary}}.}
 }
 \description{
 This function takes an adjacency matrix as input and

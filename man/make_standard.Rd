@@ -2,12 +2,12 @@
 % Please edit documentation in R/make_standard.R
 \name{make_standard}
 \alias{make_standard}
-\title{Force a matrix into a standard format}
+\title{Force a numeric matrix generated with \code{\link{make_adjacency}} into the \pkg{edgynode} standard matrix format}
 \usage{
 make_standard(adj, max_value = 1, no_negative = TRUE, no_self_loops = TRUE)
 }
 \arguments{
-\item{adj}{the adjacency matrix}
+\item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
 
 \item{max_value}{the maximum (positive) value that should exist in the
 matrix; default is 1; setting this to \code{NULL} or \code{max(abs(adj))}
