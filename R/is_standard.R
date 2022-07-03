@@ -1,4 +1,4 @@
-#' @title Check if a matrix is in a standard format
+#' @title Check if a numeric matrix generated with \code{\link{make_adjacency}} fulfills the \pkg{edgynode} standard format
 #' @description This function takes an adjacency matrix as input and checks
 #' if it is in a standard form (based on the options provided).
 #' @inheritParams make_standard
