@@ -2,18 +2,28 @@
 % Please edit documentation in R/make_binary.R
 \name{make_binary}
 \alias{make_binary}
-\title{Convert a numeric matrix to binary}
+\title{Convert a numeric generated with \code{\link{make_adjacency}} into a binary matrix}
 \usage{
-make_binary(adj, threshold = 0.7)
+make_binary(adj, threshold)
 }
 \arguments{
-\item{adj}{the adjacency matrix}
+\item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
 
-\item{threshold}{the threshold used for binarisation; default is \code{0.7}}
+\item{threshold}{a numeric value that is within the range of the input \code{adj} matrix which is then used  for binarisation.}
 }
 \description{
-This function takes an adjacency matrix as input and
-converts it to a binary one
+This function takes an adjacency matrix generated with \code{\link{make_adjacency}} as input and
+converts it to a binary matrix using a binarization threshold.
+}
+\examples{
+# look at raw matrix
+edgynode::adjacency_matrix_test_3
+# convert raw matrix into a edgynode adjacency matrix
+edgynode_matrix <- edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
+# convert into a binary matrix
+edgynode_matrix_binary <- edgynode::make_binary(edgynode_matrix, threshold = 1)
+# look at result
+edgynode_matrix_binary
 }
 \author{
 Ilias Moutsopoulos
