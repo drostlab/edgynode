@@ -9,7 +9,7 @@ make_binary(adj, threshold = 0.7)
 \arguments{
 \item{adj}{the adjacency matrix}
 
-\item{threshold}{the threshold used for binarisation; default is \code{0.5}}
+\item{threshold}{the threshold used for binarisation; default is \code{0.7}}
 }
 \description{
 This function takes an adjacency matrix as input and

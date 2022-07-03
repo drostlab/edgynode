@@ -10,7 +10,7 @@
 make_symmetric <- function(adj, method = pmax){
   # note other methods may cause this function to no longer be orthogonal
   # with the scaling/binarisation; consider removing the parameter
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(!attr(adj, "known_symmetric")){
     attr(adj, "known_symmetric") <- TRUE
     adj <- do.call(method, list(adj, t(adj)))

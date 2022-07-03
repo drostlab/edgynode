@@ -6,7 +6,7 @@
 #' @export
 
 is_binary <- function(adj){
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(attr(adj, "known_binary")){
     return(TRUE)
   }else{

@@ -7,7 +7,7 @@
 #' @export
 
 make_binary <- function(adj, threshold = 0.7){
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(!attr(adj, "known_binary")){
     attr(adj, "known_binary") <- TRUE
     adj[] <- adj >= threshold

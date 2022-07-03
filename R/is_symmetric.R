@@ -6,7 +6,7 @@
 #' @export
 
 is_symmetric <- function(adj){
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(attr(adj, "known_symmetric")){
     return(TRUE)
   }else{

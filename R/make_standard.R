@@ -18,7 +18,7 @@ make_standard <- function(
     no_negative = TRUE,
     no_self_loops = TRUE
 ){
-  check_adjacency_error(adj)
+  assert_adjacency(adj)
   if(no_self_loops) diag(adj) <- 0
   if(no_negative) adj <- abs(adj)
   if(!is.null(max_value)) adj <- adj / max(abs(adj)) * max_value
