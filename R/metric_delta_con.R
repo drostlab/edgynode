@@ -9,7 +9,7 @@
 #' @return DeltaCon score between adj1 and adj2 (a scalar)
 #' @export
 
-metric_delta_con <- function(adj1, adj2, .MAX_POWER = 10){
+metric_dist_delta_con <- function(adj1, adj2, .MAX_POWER = 10){
   degrees1 <- summary_node_degree(adj1)
   degrees2 <- summary_node_degree(adj2)
   S1 <- summary_delta_con_similarity(adj1, degrees1, .MAX_POWER = .MAX_POWER)
