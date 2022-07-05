@@ -9,21 +9,26 @@ make_adjacency(x, known_symmetric = FALSE, known_binary = FALSE)
 \arguments{
 \item{x}{a \code{\link{matrix}} object.}
 
-\item{known_symmetric}{a logical value indicating whether the input matrix \code{x} is already known to be symmetric
-(for this case use \code{known_symmetric = TRUE}) or whether the input shall be converted internally into a symmetric matrix
+\item{known_symmetric}{a logical value indicating whether the input matrix
+\code{x} is already known to be symmetric
+(for this case use \code{known_symmetric = TRUE}) or not
 (for this case use \code{known_symmetric = FALSE} (default)).}
 
-\item{known_binary}{a logical value indicating whether the input matrix \code{x} is already known to be a binary matrix
-(for this case use \code{known_binary = TRUE}) or whether the input shall be converted internally into a binary matrix using \code{\link{make_binary}}
+\item{known_binary}{a logical value indicating whether the input matrix
+\code{x} is already known to be a binary matrix
+(for this case use \code{known_binary = TRUE}) or not
 (for this case use \code{known_binary = FALSE} (default)).}
 }
+\value{
+The input matrix, converted to an adjacency
+}
 \description{
-Users may work with a vast variety of input matrices that 
+Users may work with a vast variety of input matrices that
 are derived from various gene regulatory network inference methods and tools
-with various values and value ranges. This function aims to ensure that 
+with various values and value ranges. This function aims to ensure that
 such raw data is converted into a \pkg{edgynode} adjacency matrix format
-and is the first conversion step when importing existing \code{raw} adjacency matrices 
-into the \pkg{edgynode} ecosystem.
+and is the first conversion step when importing existing \code{raw}
+adjacency matrices into the \pkg{edgynode} ecosystem.
 }
 \examples{
 # look at raw matrix
@@ -32,5 +37,5 @@ edgynode::adjacency_matrix_test_3
 edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
 }
 \seealso{
-\code{\link{make_symmetric}}, \code{\link{make_standard}}, \code{\link{make_binary}}
+\code{\link{assert_adjacency}}, \code{\link{is_adjacency}}
 }
