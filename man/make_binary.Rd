@@ -9,7 +9,9 @@ make_binary(adj, threshold)
 \arguments{
 \item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
 
-\item{threshold}{a numeric value that is within the range of the input \code{adj} matrix which is then used  for binarisation.}
+\item{threshold}{a numeric value that is within the range
+\code{min(adj) < threshold <= max(adj)} of the input which is then used
+for binarisation.}
 }
 \description{
 This function takes an adjacency matrix generated with \code{\link{make_adjacency}} as input and
