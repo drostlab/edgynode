@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary_delta_con_similarity.R
 \name{summary_delta_con_similarity}
 \alias{summary_delta_con_similarity}
-\title{Calculate graph similarity based on DeltaCon}
+\title{Calculate DeltaCon similarity}
 \usage{
 summary_delta_con_similarity(adj, degrees, .MAX_POWER = 10, debug = FALSE)
 }
@@ -19,7 +19,6 @@ summary_delta_con_similarity(adj, degrees, .MAX_POWER = 10, debug = FALSE)
 The similarity matrix S as described in the DeltaCon method
 }
 \description{
-C
 Computes the similarity matrix of an adjacency based on the DeltaCon method.
 Adapted from previous implementation by Baoxu(Dash) Shi, Data Sciense Group,
 University of Notre Dame
