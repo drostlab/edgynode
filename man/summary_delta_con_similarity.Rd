@@ -19,12 +19,16 @@ summary_delta_con_similarity(adj, degrees, .MAX_POWER = 10, debug = FALSE)
 The similarity matrix S as described in the DeltaCon method
 }
 \description{
+C
 Computes the similarity matrix of an adjacency based on the DeltaCon method.
 Adapted from previous implementation by Baoxu(Dash) Shi, Data Sciense Group,
 University of Notre Dame
 }
 \references{
-D. Koutra, J. T. Vogelstein, and C. Faloutsos: DeltaCon: A Principled Massive-Graph Similarity Function. SIAM 2013: 162–170.
+D. Koutra, J. T. Vogelstein, and C. Faloutsos: DeltaCon:
+A Principled Massive-Graph Similarity Function. SIAM 2013: 162-170.
 
-D. Koutra, T. Ke, U. Kang, D. H. Chau, H. K. Pao, C. Faloutsos: Unifying Guilt-by-Association Approaches: Theorems and Fast Algorithms. ECML/PKDD (2) 2011: 245-260
+D. Koutra, T. Ke, U. Kang, D. H. Chau, H. K. Pao, C. Faloutsos:
+Unifying Guilt-by-Association Approaches: Theorems and Fast Algorithms.
+ECML/PKDD (2) 2011: 245-260
 }
