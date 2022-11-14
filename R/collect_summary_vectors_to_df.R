@@ -13,13 +13,12 @@ collect_summary_vectors_to_df <- function(x){
   }else{
     if(is.null(names(x))) names(x) <- seq_along(x)
     df <- data.frame()
-    vec_names <- NULL
+    vec_names <- names(x[[1]])
     for(i in seq_along(x)){
       vec <- x[[i]]
-      if(i > 1 & !identical(names(vec), vec_names)){
+      if(!identical(names(vec), vec_names)){
         stop("all input vectors must have the same names")
       }
-      vec_names <- names(vec)
       df <- rbind(df, vec_to_df(vec, names(x)[i]))
     }
   }

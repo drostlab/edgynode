@@ -16,12 +16,21 @@
 make_standard <- function(
     adj,
     max_value = 1,
+    split_by_margin = NULL,
     no_negative = TRUE,
     no_self_loops = TRUE
 ){
   assert_adjacency(adj)
   if(no_self_loops) diag(adj) <- 0
   if(no_negative) adj <- abs(adj)
-  if(!is.null(max_value)) adj <- adj / max(abs(adj)) * max_value
+  if(!is.null(max_value)){
+    if(is.null(split_by_margin)){
+      adj <- adj / max(abs(adj)) * max_value
+    }else{
+      adj[] <- apply(X = adj, MARGIN = split_by_margin, FUN = function(x){
+        x / max(abs(x)) * max_value
+      })
+    }
+  }
   adj
 }

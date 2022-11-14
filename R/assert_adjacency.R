@@ -18,9 +18,16 @@
 #' @seealso \code{\link{make_adjacency}}, \code{\link{is_adjacency}}
 #' @export
 assert_adjacency <- function(x){
-  error_message_1 <- paste(deparse(substitute(x)), "is not an adjacency ")
-  error_message_3 <- "\n  You can convert an input matrix using edgynode::make_adjacency()."
-  full_error_message <- function(str) paste0(error_message_1, "(", str, "). ", error_message_3)
+  x_name <- deparse(substitute(x))
+  full_error_message <- function(str){
+    paste0(
+      x_name,
+      " is not an adjacency (",
+      str,
+      ").\n",
+      "  You can convert an input matrix using edgynode::make_adjacency()."
+      )
+  }
   if(!inherits(x, "adjacency")) stop(full_error_message("not of class 'adjacency'"))
   if(!is.matrix(x)) stop(full_error_message("not a matrix"))
   if(nrow(x) != ncol(x)) stop(full_error_message("different # of rows and columns"))

@@ -12,5 +12,5 @@ convert_adj_to_edges <- function(adj){
     to = rep(colnames(adj), each = nrow(adj)),
     value = as.vector(adj)
   ) |>
-    dplyr::filter(value != 0)
+    poorman::filter(value != 0)
 }

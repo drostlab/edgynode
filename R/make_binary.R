@@ -19,18 +19,17 @@
 
 make_binary <- function(adj, threshold, output_plot = FALSE){
   assert_adjacency(adj)
+  if(length(threshold) == 1) threshold <- rep(threshold, ncol(adj))
+  if(length(threshold) != ncol(adj)){
+    stop("threshold must be a single value or the same length as ncol(adj)")
+  }
 
   if(output_plot){
     print(plot_adjacency_weights(adj = adj, threshold = threshold))
   }
 
   if(!attr(adj, "known_binary")){
-    # check that the threshold is within the numeric range of the adjacency matrix
-    if(threshold <= min(adj) | threshold > max(adj))
-      stop("Threshold value ", threshold,
-           " is not within the numeric range of your input matrix (",
-           min(adj), ",", max(adj), "].")
-
+    attr(adj, "known_symmetric") <- FALSE
     attr(adj, "known_binary") <- TRUE
     adj[] <- adj >= threshold
   }
