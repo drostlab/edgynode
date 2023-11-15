@@ -1,3 +1,14 @@
+#' @title Plot all the node weights of an adjacency
+#' @param adj an \pkg{edgynode} adjacency.
+#' @param threshold a numeric vector of length 1 or a named numeric vector of 
+#' the same size as the number of nodes. The names of the vector must be the 
+#' names of the nodes in the adjacency.
+#' @return The plot as a ggplot object.
+#' @examples
+#' adj <- edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
+#' plot_adjacency_weights(adj, threshold = 3)
+#' plot_adjacency_weights(adj, threshold = c("N1" = 2, "N2" = 1, "N3" = 3))
+#' @export
 plot_adjacency_weights <- function(adj, threshold = NULL){
   assert_adjacency(adj)
   edges <- convert_adj_to_edges(adj) |>
