@@ -52,8 +52,8 @@
 summary_centrality_alpha <- function(graph, nodes = colnames(graph), alpha = 1,
                                      loops = FALSE, exo = 1, weights = NULL,
                                      tol = 1e-7, sparse = TRUE){
-  igmat <- convert_adj_to_igraph(adj[my_colnames, my_colnames])
-  igraph::alpha_centrality(igmat,nodes = nodes, alpha = alpha,
+  igmat <- convert_adj_to_igraph(adj[nodes, nodes])
+  igraph::alpha_centrality(igmat, alpha = alpha,
                                   loops = loops, exo = exo, weights = weights,
                                   tol =tol, sparse = sparse)
 }
