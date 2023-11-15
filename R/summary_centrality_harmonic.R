@@ -9,7 +9,7 @@
 #' default), then the function calculates the exact harmonic centrality scores.
 #'
 #' @param graph The graph to analyze.
-#' @param vids The vertices for which harmonic centrality will be calculated.
+#' @param nodes The nodes for which harmonic centrality will be calculated.
 #' @param mode Character string, defining the types of the paths used for
 #'   measuring the distance in directed graphs. \dQuote{out} follows paths along
 #'   the edge directions only, \dQuote{in} traverses the edges in reverse, while
@@ -34,14 +34,6 @@
 #' @family centrality
 #' @export
 #' @keywords graphs
-#' @examples
-#'
-#' g <- make_ring(10)
-#' g2 <- make_star(10)
-#' harmonic_centrality(g)
-#' harmonic_centrality(g2, mode = "in")
-#' harmonic_centrality(g2, mode = "out")
-#' harmonic_centrality(g %du% make_full_graph(5), mode = "all")
 #'
 summary_centrality_harmonic <- function(graph, nodes = colnames(graph),mode = "out",weights = NULL,
                                         normalized = FALSE,
