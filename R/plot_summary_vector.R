@@ -39,5 +39,5 @@ plot_summary_vector <- function(x, individual = TRUE, show_legend = TRUE){
       ggplot2::geom_boxplot(ggplot2::aes(x = name, y = value)) +
       ggplot2::theme(axis.text.x = ggplot2::element_text(angle = 90, vjust = 0.5, hjust=1))
   }
-  p + ggplot2::ylim(0, NA)
+  p
 }
