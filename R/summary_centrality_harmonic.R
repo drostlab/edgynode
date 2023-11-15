@@ -43,3 +43,9 @@
 #' harmonic_centrality(g2, mode = "out")
 #' harmonic_centrality(g %du% make_full_graph(5), mode = "all")
 #'
+summary_centrality_harmonic <- function(graph, nodes = colnames(graph),mode = "out",weights = NULL,
+                                        normalized = FALSE,
+                                        cutoff = -1){
+  igmat <- convert_adj_to_igraph(adj[nodes, nodes])
+  igraph::harmonic_centrality(igmat,mode=mode,weights=weights,normalized=normalized,cutoff=cutoff)
+}
