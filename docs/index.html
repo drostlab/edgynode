@@ -44,6 +44,12 @@
 <li class="nav-item">
   <a class="nav-link" href="reference/index.html">Reference</a>
 </li>
+<li class="nav-item dropdown">
+  <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true" id="dropdown-articles">Articles</a>
+  <div class="dropdown-menu" aria-labelledby="dropdown-articles">
+    <a class="dropdown-item" href="articles/Introduction.html">Introduction to the edgynode package</a>
+  </div>
+</li>
       </ul>
 <form class="form-inline my-2 my-lg-0" role="search">
         <input type="search" class="form-control me-sm-2" aria-label="Toggle navigation" name="search-input" data-search-index="search.json" id="search-input" placeholder="Search for" autocomplete="off">
@@ -65,7 +71,7 @@
 <div class="section level3">
 <h3 id="motivation">Motivation<a class="anchor" aria-label="anchor" href="#motivation"></a>
 </h3>
-<p>The expression of genes is a fundamental molecular mechanism allowing organisms to produce proteins that govern all functional aspects of living cells. In the past years, complex regulatory mechanisms have been described that place transcription factors (TFs), transposable elements (TEs), and regulatory RNA as main actors governing gene expression. Deciphering these interactions between genes and their regulators in various biological contexts such as development or stress response are of immense interest to life scientists. Given the recent advancements in next- generation sequencing technologies, the inference of these regulatory interactions from (single-cell) RNAseq, ChIPseq, and ATACseq data become feasible and are able to paint a genome-wide picture of gene regulation.</p>
+<p>The expression of genes is a fundamental molecular mechanism allowing organisms to produce proteins that govern all functional aspects of living cells. In the past years, complex regulatory mechanisms have been described that place transcription factors (TFs), transposable elements (TEs), and regulatory RNA as main actors governing gene expression. Deciphering these interactions between genes and their regulators in various biological contexts such as development or stress response are of immense interest to life scientists. Given the recent advancements in next-generation sequencing technologies, the inference of these regulatory interactions from (single-cell) RNAseq, ChIPseq, and ATACseq data become feasible and are able to paint a genome-wide picture of gene regulation.</p>
 </div>
 <div class="section level3">
 <h3 id="short-package-description">Short package description<a class="anchor" aria-label="anchor" href="#short-package-description"></a>
@@ -82,46 +88,11 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"drostlab/edgynode"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="tutorials">Tutorials<a class="anchor" aria-label="anchor" href="#tutorials"></a>
 </h2>
-<div class="section level3">
-<h3 id="small-example-with-internal-dataset">Small example with internal dataset<a class="anchor" aria-label="anchor" href="#small-example-with-internal-dataset"></a>
-</h3>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="co"># library(edgynode)</span></span>
-<span></span>
-<span><span class="co"># Benchmark GENIE3 inferred networks with raw, no_noise, and quantile_norm combinations</span></span>
-<span><span class="va">genie3_49_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data/network_raw_49_placenta_development.csv"</span>,</span>
-<span> package <span class="op">=</span> <span class="st">"edgynode"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">genie3_49_noNoiseCM_raw</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data/network_noNoiseCM_raw_49_placenta_development.csv"</span>,</span>
-<span> package <span class="op">=</span> <span class="st">"edgynode"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">genie3_49_qnorm_no_noise_removed</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data/network_qnorm_49_placenta_development.csv"</span>,</span>
-<span> package <span class="op">=</span> <span class="st">"edgynode"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">genie3_49_noNoiseCM_qnorm</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/matrix.html" class="external-link">as.matrix</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/utils/read.table.html" class="external-link">read.csv</a></span><span class="op">(</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"data/network_noNoiseCM_qnorm_49_placenta_development.csv"</span>,</span>
-<span> package <span class="op">=</span> <span class="st">"edgynode"</span><span class="op">)</span>, row.names <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># Run Benchmark using Hamming distance</span></span>
-<span><span class="va">benchmark_hamming</span> <span class="op">&lt;-</span> <span class="fu">edgynode</span><span class="fu">::</span><span class="fu">network_benchmark_noise_filtering</span><span class="op">(</span></span>
-<span><span class="va">genie3_49_raw</span>,</span>
-<span><span class="va">genie3_49_noNoiseCM_raw</span>,</span>
-<span><span class="va">genie3_49_qnorm_no_noise_removed</span>,</span>
-<span><span class="va">genie3_49_noNoiseCM_qnorm</span>,</span>
-<span>dist_type <span class="op">=</span> <span class="st">"hamming"</span>,</span>
-<span>grn_tool <span class="op">=</span> <span class="st">"GENIE3"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="co"># visualize at results</span></span>
-<span><span class="fu">edgynode</span><span class="fu">::</span><span class="fu">plot_network_benchmark_noise_filtering</span><span class="op">(</span><span class="va">benchmark_hamming</span>,</span>
-<span>            dist_type <span class="op">=</span> <span class="st">"hamming"</span>, </span>
-<span>            title <span class="op">=</span> <span class="st">"Network Inference Tool: GENIE3"</span><span class="op">)</span></span></code></pre></div>
-<p><img src="reference/figures/Example_Fig1.png"></p>
-</div>
+<ul>
+<li><a href="https://drostlab.github.io/edgynode/articles/Introduction">Introduction</a></li>
+</ul>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="license">

@@ -1,0 +1,91 @@
+---
+title: "Introduction to the edgynode package"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+fig_caption: yes
+vignette: >
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteIndexEntry{Introduction to the edgynode package}
+  %\usepackage[UTF-8]{inputenc}
+---
+
+```{r, echo = FALSE, message = FALSE}
+library(edgynode)
+options(width = 750)
+knitr::opts_chunk$set(
+  comment = "#>",
+  error = FALSE,
+  tidy = FALSE)
+```
+
+# Table of Contents
+1. [Why `edgynode`?](#why-edgynode)
+2. [Installation](#installation)
+3. [Performing an Example Workflow for edgynode analysis](#performing-an-example-workflow-for-edgynode-analysis)
+
+## Why `edgynode`?
+
+With the maturation of (single-cell) sequencing technologies across modalities, the inference of gene regulatory networks (`GRN`) is increasingly feasible. Yet, we lack a simple and powerful statistical package to benchmark GRN inference outcomes.
+
+The `edgynode` package imports inferred gene regulatory networks and performs network statistics and network simulation procedures to investigate the topology and structure of the GRN at hand.
+
+## Installation
+
+```r
+# install edgynode from GitHub
+devtools::install_github("drostlab/edgynode")
+```
+
+## Performing an Example Workflow for edgynode analysis
+
+### Load small example with internal dataset
+```{r warning=FALSE, message=FALSE}
+# library(edgynode)
+
+# Benchmark GENIE3 inferred networks with raw, no_noise, and quantile_norm combinations
+genie3_49_raw <- as.matrix(read.csv(
+  system.file("data/network_raw_49_placenta_development.csv",
+              package = "edgynode"), row.names = 1))
+
+genie3_49_noNoiseCM_raw <- as.matrix(read.csv(
+  system.file("data/network_noNoiseCM_raw_49_placenta_development.csv",
+              package = "edgynode"), row.names = 1))
+
+genie3_49_qnorm_no_noise_removed <- as.matrix(read.csv(
+  system.file("data/network_qnorm_49_placenta_development.csv",
+              package = "edgynode"), row.names = 1))
+
+genie3_49_noNoiseCM_qnorm <- as.matrix(read.csv(
+  system.file("data/network_noNoiseCM_qnorm_49_placenta_development.csv",
+              package = "edgynode"), row.names = 1))
+```
+
+### Check data properties
+```{r}
+is_adjacency(genie3_49_noNoiseCM_qnorm)
+```
+
+```{r}
+is_adjacency(make_adjacency(genie3_49_noNoiseCM_qnorm))
+```
+
+### Benchmark small example with internal dataset
+
+```{r warning=FALSE, message=FALSE}
+# Run Benchmark using Hamming distance
+benchmark_hamming <- 
+  network_benchmark_noise_filtering(
+    genie3_49_raw,
+    genie3_49_noNoiseCM_raw,
+    genie3_49_qnorm_no_noise_removed,
+    genie3_49_noNoiseCM_qnorm,
+    dist_type = "hamming",
+    grn_tool = "GENIE3")
+
+# visualise results
+plot_network_benchmark_noise_filtering(
+  benchmark_hamming,
+  dist_type = "hamming", 
+  title = "Network Inference Tool: GENIE3")
+```
+
