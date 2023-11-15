@@ -15,10 +15,10 @@ Description: Imports correlation matrices of gene regulatory networks inferred
         compare and visualize networks.
 License: GPL-3
 Depends: R (>= 4.1.0)
-Imports: fs, e1071, philentropy, ggplot2, poorman, igraph
+Imports: fs, e1071, philentropy, ggplot2, poorman, igraph, backbone
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
 Suggests: 
     testthat (>= 3.0.0),
     knitr,

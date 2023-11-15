@@ -4,7 +4,13 @@
 \alias{make_standard}
 \title{Force a numeric matrix generated with \code{\link{make_adjacency}} into the \pkg{edgynode} standard matrix format}
 \usage{
-make_standard(adj, max_value = 1, no_negative = TRUE, no_self_loops = TRUE)
+make_standard(
+  adj,
+  max_value = 1,
+  split_by_margin = NULL,
+  no_negative = TRUE,
+  no_self_loops = TRUE
+)
 }
 \arguments{
 \item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
