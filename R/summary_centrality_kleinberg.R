@@ -42,8 +42,8 @@
 kleinberg_score <- function(graph,mode="hub",scale = TRUE, weights = NULL){
   igmat <- convert_adj_to_igraph(graph)
   if(mode=="hub"){
-    igraph::hub_score(igmat, scale = TRUE, weights = NULL)
+    igraph::hub_score(igmat, scale = scale, weights = weights)
   }else{
-    igraph::authority_score(igmat, scale = TRUE, weights = NULL)
+    igraph::authority_score(igmat, scale = scale, weights = weights)
   }
 }
