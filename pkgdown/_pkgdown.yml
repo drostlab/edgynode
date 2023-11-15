@@ -1,0 +1,23 @@
+url: https://drostlab.github.io/edgynode/
+template:
+  bootstrap: 5
+
+reference:
+- title: Plot functions
+  desc:  Comparative visualisation of network inference outcomes.
+- contents:
+  - starts_with("plot_")
+- title: Summary functions
+  desc:  Summarise network inference outcomes.
+- contents:
+  - starts_with("summary_")
+- title: Helpers
+- contents:
+  - starts_with("is_")
+  - starts_with("make_")
+  - import_genie3
+  - ppcor
+  - starts_with("assert_")
+  - starts_with("convert_")
+  - starts_with("metric_")
+  - starts_with("network_")

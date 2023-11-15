@@ -4,27 +4,31 @@
 \alias{network_make_binary}
 \title{Matrix convert to binary}
 \usage{
-network_make_binary(adj_mat, threshold, print_message = TRUE)
+network_make_binary(
+  adj_mat,
+  threshold = NULL,
+  print_message = TRUE,
+  filtered = FALSE
+)
 }
 \arguments{
 \item{adj_mat}{adjacency matrix to be converted.}
 
-\item{threshold}{we recommended to use \code{\link{network_rescale}}
+\item{threshold}{relevant only for not-prefiltered input matrix. If not 
+specified, the function will filter based on the disparity measure (Neal, Z.P. (2022). 
+backbone: An R package to extract network backbones) (recommended). If you 
+want to specify threshold, we recommend to use \code{\link{network_rescale}}
 before using this function. Re-scaling will transform all values into a range [0,100].
-The threshold can either be a numeric balue in the interval [0,100] or a character string
-specifying the following methods for automatically determining the threshold based on the input data:
-\itemize{
-\item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
-\code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
-value as \code{0} and all values above the \code{median} value as \code{1}.  
-}}
+The threshold should be a numeric value in the interval [0,100]}
 
 \item{print_message}{a logical value indicating whether or not a threshold message shall be printed.}
+
+\item{filtered}{a logical value indicating whether the input adjacency network 
+has been already prefiltered and thus no more edges should be removed}
 }
 \description{
-This function takes a weighted adjacency matrix and separates
-the components of the matrix into weights and presence/absence matrices
-making use of a threshold.
+This function takes a weighted adjacency matrix and created a 
+binary adjacency matrix, filtering the unsignificant edges, if specified
 }
 \examples{
  # path to PPCOR output file
@@ -40,5 +44,5 @@ ppcor_binary <- network_make_binary(ppcor_rescaled, 70)
  plot_network_dendrogram(ppcor_binary)
 }
 \author{
-Sergio Vasquez and Hajk-Georg Drost
+Sergio Vasquez, Hajk-Georg Drost and Nikola Kalábová
 }

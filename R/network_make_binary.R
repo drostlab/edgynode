@@ -1,19 +1,17 @@
 #' @title Matrix convert to binary
-#' @description This function takes a weighted adjacency matrix and separates
-#' the components of the matrix into weights and presence/absence matrices
-#' making use of a threshold.
+#' @description This function takes a weighted adjacency matrix and created a 
+#' binary adjacency matrix, filtering the unsignificant edges, if specified
 #' @param adj_mat adjacency matrix to be converted.
-#' @param threshold we recommended to use \code{\link{network_rescale}}
+#' @param threshold relevant only for not-prefiltered input matrix. If not 
+#' specified, the function will filter based on the disparity measure (Neal, Z.P. (2022). 
+#' backbone: An R package to extract network backbones) (recommended). If you 
+#' want to specify threshold, we recommend to use \code{\link{network_rescale}}
 #' before using this function. Re-scaling will transform all values into a range [0,100].
-#' The threshold can either be a numeric balue in the interval [0,100] or a character string
-#' specifying the following methods for automatically determining the threshold based on the input data:
-#' \itemize{
-#' \item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
-#' \code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
-#' value as \code{0} and all values above the \code{median} value as \code{1}.  
-#' }
+#' The threshold should be a numeric value in the interval [0,100]
 #' @param print_message a logical value indicating whether or not a threshold message shall be printed.
-#' @author Sergio Vasquez and Hajk-Georg Drost
+#' @param filtered a logical value indicating whether the input adjacency network 
+#' has been already prefiltered and thus no more edges should be removed
+#' @author Sergio Vasquez, Hajk-Georg Drost and Nikola Kalábová
 #' @examples
 #'  # path to PPCOR output file
 #' ppcor_output <- system.file('beeline_examples/PPCOR/outFile.txt', package = 'edgynode')
@@ -29,61 +27,20 @@
 #' @export
 
 network_make_binary <-
-  function (adj_mat, threshold, print_message = TRUE) {
-    
-    median_threshold <- round(stats::median(adj_mat), 2)
-    
-    
-    if (is.numeric(threshold)) {
-      if (!dplyr::between(threshold, 0, 100)) {
-        stop("Please provide a threshold value between [0,100].", call. = FALSE)
-      }
-    }
+  function (adj_mat, threshold = NULL, print_message = TRUE, filtered = FALSE) {
     
     if (print_message) {
-      if (is.numeric(threshold)) {
+      if (filtered == TRUE) {
         message(
-          "network_make_binary() applies [",
-          threshold,
-          "] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix."
+          "Assigning every edge the value of 1"
         )
       }
+    }
+    
+    if (filtered == FALSE) {
+      mat <- network_filter_edges(adj_mat,threshold = threshold, print_message = print_message)
       
-      if (is.character(threshold)) {
-        if (threshold == "median") {
-          message(
-            "network_make_binary() applies the median value over all values in the input matrix an uses [",
-            median_threshold,
-            "] as cut-off threshold to transform the input weighted adjacency matrix into a binary adjacency matrix."
-          )
-        }
-        
-      }
     }
-    
-    
-    if (is.numeric(threshold)) {
-      binary <-
-        apply(
-          adj_mat,
-          FUN = function(x)
-            ifelse(x > threshold, yes = 1, no = 0),
-          MARGIN = c(1, 2)
-        )
-    }
-    
-    if (is.character(threshold)) {
-      if (threshold == "median") {
-
-        binary <-
-          apply(
-            adj_mat,
-            FUN = function(x)
-              ifelse(x > median_threshold, yes = 1, no = 0),
-            MARGIN = c(1, 2)
-          )
-      }
-    }
-    
+    binary <- ifelse(mat != 0, 1, 0)
     return(binary)
   }

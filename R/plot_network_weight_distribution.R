@@ -4,16 +4,8 @@
 #' @param adj_mat a weighted adjacency matrix.
 #' @param xlab x-axis label.
 #' @param ylab y-axis label.
-#' @param threshold we recommended to use \code{\link{network_rescale}}
-#' before using this function. Re-scaling will transform all values into a range [0,100].
-#' The threshold can either be a numeric balue in the interval [0,100] or a character string
-#' specifying the following methods for automatically determining the threshold based on the input data:
-#' \itemize{
-#' \item \code{threshold = "median"}: compute the \code{\link{median}} over the entire input \code{adj_mat} and use this 
-#' \code{median} value as threshold for defining all edge weights of a genes equal or below the \code{median}
-#' value as \code{0} and all values above the \code{median} value as \code{1}.  
-#' }
-#' The threshold value will then be drawn as vertical line in the plot.
+#' @param threshold a numeric value in the interval [0,100] 
+#' The threshold value will then be drawn as vertical line in the plot. Only relevant, if you provided treshold for the filtering.
 #' @param x_ticks number of y-axis ticks.
 #' @author Sergio Vasquez and Hajk-Georg Drost
 #' @examples
@@ -31,7 +23,7 @@ plot_network_weight_distribution <-
   function (adj_mat,
             xlab = "Edge weight",
             ylab = "Gene name",
-            threshold,
+            threshold = NULL,
             x_ticks = 10) {
     
     adj_mat_long <-
@@ -51,20 +43,17 @@ plot_network_weight_distribution <-
         ) + ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7")
     }
     
-    if (is.character(threshold)) {
-      if (threshold == "median"){
+    else if (is.null(threshold)){
         p <- 
           ggplot2::ggplot(adj_mat_long, ggplot2::aes(x = value, y = name, colour = value)) + ggplot2::geom_point() +
           ggplot2::xlab(xlab) + ggplot2::ylab(ylab) +
-          ggplot2::geom_vline(
-            xintercept = round(stats::median(adj_mat), 2),
-            color = "red",
-            size = 1.5,
-            alpha = 0.3
-          ) + ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7") +
+          ggplot2::scale_colour_continuous(high = "#132B43", low = "#56B1F7") +
           ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = x_ticks))
-      }
     }
+    else {
+        stop("Please provide a numeric treshold, or don't specify this atribute", call. = FALSE)
+    }
+    
     
     return(p)
   }
