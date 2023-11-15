@@ -18,8 +18,9 @@
 #' @export
 
 is_symmetric <- function(adj){
-  assert_adjacency(adj)
-  if(attr(adj, "known_symmetric")){
+  if(is.null(attr(adj, "known_symmetric"))){
+    attr(adj, "known_symmetric") <- isSymmetric(adj)
+  } else if(attr(adj, "known_symmetric")){
     return(TRUE)
   }else{
     return(isSymmetric(adj))

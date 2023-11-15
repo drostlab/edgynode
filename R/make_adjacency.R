@@ -22,7 +22,8 @@
 #' edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
 #' @seealso \code{\link{assert_adjacency}}, \code{\link{is_adjacency}}
 #' @export
-make_adjacency <- function(x, known_symmetric = FALSE, known_binary = FALSE){
+make_adjacency <- function(x, known_binary = FALSE){
+  known_symmetric = is_symmetric(x)
   if(is_adjacency(x)) stop("Matrix is already an adjacency")
   if(!is.matrix(x)) stop("Please supply a matrix")
   if(nrow(x) != ncol(x)) stop("Matrix must be square")
