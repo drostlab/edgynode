@@ -11,9 +11,6 @@
 #' adj1 <- adj2 <- adj3 <- edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
 #' adj2[1, 3] <- 5
 #' adj3[1, 3] <- 0
-#' adj1 <- edgynode::make_standard(adj1)
-#' adj2 <- edgynode::make_standard(adj2)
-#' adj3 <- edgynode::make_standard(adj3)
 #' 
 #' x <- list(
 #'   "node_degree_adj1" = summary_node_degree(adj1),
