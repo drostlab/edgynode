@@ -4,20 +4,20 @@
 \alias{make_adjacency}
 \title{Convert a raw input matrix into an \pkg{edgynode} adjacency matrix}
 \usage{
-make_adjacency(x, known_symmetric = FALSE, known_binary = FALSE)
+make_adjacency(x, known_binary = FALSE)
 }
 \arguments{
 \item{x}{a \code{\link{matrix}} object.}
-
-\item{known_symmetric}{a logical value indicating whether the input matrix
-\code{x} is already known to be symmetric
-(for this case use \code{known_symmetric = TRUE}) or not
-(for this case use \code{known_symmetric = FALSE} (default)).}
 
 \item{known_binary}{a logical value indicating whether the input matrix
 \code{x} is already known to be a binary matrix
 (for this case use \code{known_binary = TRUE}) or not
 (for this case use \code{known_binary = FALSE} (default)).}
+
+\item{known_symmetric}{a logical value indicating whether the input matrix
+\code{x} is already known to be symmetric
+(for this case use \code{known_symmetric = TRUE}) or not
+(for this case use \code{known_symmetric = FALSE} (default)).}
 }
 \value{
 The input matrix, converted to an adjacency

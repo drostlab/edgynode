@@ -16,6 +16,8 @@ reference:
   - starts_with("is_")
   - starts_with("make_")
   - import_genie3
+  - ppcor
   - starts_with("assert_")
   - starts_with("convert_")
   - starts_with("metric_")
+  - starts_with("network_")
