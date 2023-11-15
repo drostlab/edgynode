@@ -53,4 +53,4 @@ edgynode::plot_network_benchmark_noise_filtering(benchmark_hamming,
             dist_type = "hamming", 
             title = "Network Inference Tool: GENIE3")
 ```
-![](img/Example_Fig1.png)
+![](man/figures/Example_Fig1.png)

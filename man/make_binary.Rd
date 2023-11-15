@@ -4,7 +4,7 @@
 \alias{make_binary}
 \title{Convert a numeric matrix generated with \code{\link{make_adjacency}} into a binary matrix}
 \usage{
-make_binary(adj, threshold)
+make_binary(adj, threshold, output_plot = FALSE)
 }
 \arguments{
 \item{adj}{an adjacency matrix converted from a raw input matrix via \code{\link{make_adjacency}}.}
