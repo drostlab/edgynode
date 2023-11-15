@@ -39,7 +39,7 @@
 #' as IBM Research Report RJ 10076, May 1997.
 #'
 #' @export
-kleinberg_score <- function(graph,mode="hub",scale = TRUE, weights = NULL){
+summary_centrality_kleinberg <- function(graph,mode="hub",scale = TRUE, weights = NULL){
   igmat <- convert_adj_to_igraph(graph)
   if(mode=="hub"){
     igraph::hub_score(igmat, scale = scale, weights = weights)
