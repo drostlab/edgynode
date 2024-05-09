@@ -42,50 +42,60 @@ devtools::install_github("drostlab/edgynode")
 ```{r warning=FALSE, message=FALSE}
 # library(edgynode)
 
-# Benchmark GENIE3 inferred networks with raw, no_noise, and quantile_norm combinations
-genie3_49_raw <- as.matrix(read.csv(
-  system.file("data/network_raw_49_placenta_development.csv",
-              package = "edgynode"), row.names = 1))
+# loading examples
+load("data/adjacency_clean_test_3.rda")
+load("data/adjacency_matrix_genie3_10.rda")
+load("data/adjacency_matrix_test_3.rda")
 
-genie3_49_noNoiseCM_raw <- as.matrix(read.csv(
-  system.file("data/network_noNoiseCM_raw_49_placenta_development.csv",
-              package = "edgynode"), row.names = 1))
+# Now there are three networks to analyze
+# adjacency_clean_test_3, adjacency_matrix_genie3_10 and adjacency_matrix_test_3
 
-genie3_49_qnorm_no_noise_removed <- as.matrix(read.csv(
-  system.file("data/network_qnorm_49_placenta_development.csv",
-              package = "edgynode"), row.names = 1))
-
-genie3_49_noNoiseCM_qnorm <- as.matrix(read.csv(
-  system.file("data/network_noNoiseCM_qnorm_49_placenta_development.csv",
-              package = "edgynode"), row.names = 1))
 ```
 
 ### Check data properties
 ```{r}
-is_adjacency(genie3_49_noNoiseCM_qnorm)
+is_adjacency(adjacency_clean_test_3)
+
+is_adjacency(adjacency_matrix_genie3_10)
+
+is_adjacency(adjacency_matrix_test_3)
 ```
 
 ```{r}
-is_adjacency(make_adjacency(genie3_49_noNoiseCM_qnorm))
+# to convert those that are not adjacency formatted
+adj_matrix_genie3_10 <- make_adjacency(adjacency_matrix_genie3_10)
+
+adj_matrix_test_3 <- make_adjacency(adjacency_matrix_test_3)
 ```
 
 ### Benchmark small example with internal dataset
 
 ```{r warning=FALSE, message=FALSE}
-# Run Benchmark using Hamming distance
-benchmark_hamming <- 
-  network_benchmark_noise_filtering(
-    genie3_49_raw,
-    genie3_49_noNoiseCM_raw,
-    genie3_49_qnorm_no_noise_removed,
-    genie3_49_noNoiseCM_qnorm,
-    dist_type = "hamming",
-    grn_tool = "GENIE3")
+# Example for weighted network
 
-# visualise results
-plot_network_benchmark_noise_filtering(
-  benchmark_hamming,
-  dist_type = "hamming", 
-  title = "Network Inference Tool: GENIE3")
+plot_adjacency_weights(adj_matrix_genie3_10, threshold = 3)
+plot_adjacency_weights(adj_matrix_genie3_10, threshold = c("N1" = 2, "N2" = 1, "N3" = 3))
+
+# Comparing node degrees in different networks
+
+adj1 <- adj2 <- adj3 <- edgynode::make_adjacency(edgynode::adjacency_matrix_test_3)
+adj2[1, 3] <- 5
+adj3[1, 3] <- 0
+adj1 <- edgynode::make_standard(adj1)
+adj2 <- edgynode::make_standard(adj2)
+adj3 <- edgynode::make_standard(adj3)
+
+euclidean_distance_of_node_degrees <- metric_summary_distance(
+ summary_fun = summary_node_degree,
+ distance_fun = philentropy::euclidean,
+ distance_args = list(testNA = FALSE)
+ )
+ 
+df <- compare_adj_list(
+ adj_list = list("adj1" = adj1, "adj2" = adj2, "adj3" = adj3), 
+ metric = euclidean_distance_of_node_degrees
+ )
+ 
+plot_compare_adj_list(df)
 ```
 
